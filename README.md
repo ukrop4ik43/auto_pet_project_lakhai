@@ -3,3 +3,5 @@ It follows the MVI architectural pattern, providing predictable state management
 Dependency injection is implemented with Hilt, enabling easy management of dependencies across modules. 
 The app uses the latest Jetpack Navigation libraries, offering modern and type-safe navigation between screens.
 The project also includes unit and instrumented tests, ensuring reliability and maintainability.
+
+[screenshots/screenshot_1.png]
