@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
+import com.petprojject.common_ui.theme.CarTheme
 
 @Composable
 fun ModelsScreen(
@@ -61,11 +62,12 @@ fun ModelsScreen(
                             onAction(ModelsContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = Color.Black,
+                    tint = CarTheme.customColors.backIconColor,
                     contentDescription = null
                 )
             }
-        }
+        },
+        containerColor = CarTheme.customColors.backgroundColor,
     ) { padding ->
         ScaffoldContent(
             isLoading = uiState.isLoading, error =
@@ -81,8 +83,8 @@ fun ModelsScreen(
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, Color.Gray),
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
                             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
                         ) {
                             BasicText(
@@ -118,8 +120,8 @@ fun ModelsScreen(
                                 .clickableNoIndication {
                                     onAction(ModelsContract.UiAction.OnModelClick(item))
                                 },
-                            border = BorderStroke(1.dp, Color.Gray),
-                            colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+                            border = BorderStroke(1.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.choiceCardBackground),
                             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
                         ) {
                             Text(

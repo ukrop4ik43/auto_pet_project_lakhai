@@ -1,8 +1,6 @@
 package com.petprojject.common_ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -27,15 +25,23 @@ private val LightColorScheme = lightColorScheme(
 )
 
 data class AppCustomColors(
-    val warning: Color,
-    val success: Color,
-    val danger: Color,
+    val backgroundColor: Color,
+    val tryAgainButtonContainer: Color,
+    val textColor: Color,
+    val backIconColor: Color,
+    val cardBorderColor: Color,
+    val resultCardBackground: Color,
+    val choiceCardBackground: Color
 )
 
 val LightCustomColors = AppCustomColors(
-    warning = Color(0xFFFFA000),
-    success = Color(0xFF4CAF50),
-    danger = Color(0xFFD32F2F),
+    backgroundColor = Color(0xFFB7B2C5),
+    tryAgainButtonContainer = Color(0xFF486C72),
+    textColor = Color(0xFF000000),
+    backIconColor = Color(0xFF000000),
+    cardBorderColor = Color(0xFF888888),
+    resultCardBackground = Color(0xFFD3C6E3),
+    choiceCardBackground = Color(0xFF808080)
 )
 val LocalCustomColors = staticCompositionLocalOf<AppCustomColors> {
     error("Custom Colors not provided")
@@ -56,7 +62,7 @@ fun AutoPetProjectLakhaiTheme(
     }
 }
 
-object AppTheme {
+object CarTheme {
     val customColors: AppCustomColors
         @Composable
         get() = LocalCustomColors.current

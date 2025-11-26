@@ -16,13 +16,11 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
-import com.petprojject.common_ui.theme.AppTheme
+import com.petprojject.common_ui.theme.CarTheme
 
 
 @Composable
@@ -45,6 +43,7 @@ fun SummaryScreen(
             .fillMaxSize()
             .navigationBarsPadding()
             .systemBarsPadding(),
+        containerColor = CarTheme.customColors.backgroundColor,
         topBar = {
             Box(Modifier.fillMaxWidth()) {
                 Text(
@@ -62,7 +61,7 @@ fun SummaryScreen(
                             onAction(SummaryContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = Color.Black,
+                    tint = CarTheme.customColors.backIconColor,
                     contentDescription = null
                 )
             }
@@ -80,8 +79,8 @@ fun SummaryScreen(
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, Color.Gray),
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
                             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
                         ) {
                             BasicText(
@@ -102,8 +101,8 @@ fun SummaryScreen(
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, Color.Gray),
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
                             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
                         ) {
                             BasicText(
@@ -124,8 +123,8 @@ fun SummaryScreen(
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, Color.Gray),
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
                             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
                         ) {
                             BasicText(
