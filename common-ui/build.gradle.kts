@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.test.common_ui"
+    namespace = "com.petprojject.common_ui"
     compileSdk {
         version = release(36)
     }

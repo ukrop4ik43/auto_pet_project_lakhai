@@ -8,13 +8,13 @@ plugins {
 }
 
 android {
-    namespace = "com.test.autotestlakhai"
+    namespace = "com.petproject.autolakhai"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.test.autotestlakhai"
+        applicationId = "com.petproject.autolakhai"
         minSdk = 29
         targetSdk = 36
         versionCode = 1

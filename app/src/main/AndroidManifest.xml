@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".AutoApp"
+        android:name="com.petprojject.autolakhai.AutoApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,14 +13,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AutoTestLakhai"
+        android:theme="@style/Theme.AutoPetProjectLakhai"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="com.petprojject.autolakhai.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AutoTestLakhai">
+            android:theme="@style/Theme.AutoPetProjectLakhai">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

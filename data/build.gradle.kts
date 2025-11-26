@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.test.data"
+    namespace = "com.petprojject.data"
     compileSdk {
         version = release(36)
     }

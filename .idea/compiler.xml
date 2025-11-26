@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="AutoPetProjectLakhai.app" target="21" />
+      <module name="AutoPetProjectLakhai.common-ui" target="21" />
+      <module name="AutoPetProjectLakhai.core" target="21" />
+      <module name="AutoPetProjectLakhai.data" target="21" />
+      <module name="AutoPetProjectLakhai.feature-car" target="21" />
+      <module name="AutoTestLakhai.app" target="21" />
+      <module name="AutoTestLakhai.common-ui" target="21" />
+      <module name="AutoTestLakhai.core" target="21" />
+      <module name="AutoTestLakhai.data" target="21" />
+      <module name="AutoTestLakhai.feature-car" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

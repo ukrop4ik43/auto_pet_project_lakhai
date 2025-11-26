@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AutoTestLakhai"
+rootProject.name = "AutoPetProjectLakhai"
 include(":app")
 include(":data")
 include(":domain")

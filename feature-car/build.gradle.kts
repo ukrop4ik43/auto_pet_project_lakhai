@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.test.feature_automobile"
+    namespace = "com.petprojject.feature_automobile"
     compileSdk {
         version = release(36)
     }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.test.core"
+    namespace = "com.petprojject.core"
     compileSdk {
         version = release(36)
     }
