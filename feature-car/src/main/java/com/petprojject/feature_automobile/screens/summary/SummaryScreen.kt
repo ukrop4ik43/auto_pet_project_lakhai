@@ -62,7 +62,7 @@ fun SummaryScreen(
                             onAction(SummaryContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = AppTheme.customColors.success,
+                    tint = Color.Black,
                     contentDescription = null
                 )
             }
