@@ -4,6 +4,6 @@ Dependency injection is implemented with Hilt, enabling easy management of depen
 The app uses the latest Jetpack Navigation libraries, offering modern and type-safe navigation between screens.
 The project also includes unit and instrumented tests, ensuring reliability and maintainability.
 
-![First screenshot](screenshots/screenshot_1.png)
-![Second screenshot](screenshots/screenshot_2.png)
-![Third screenshot](screenshots/screenshot_3.png)
+![First screenshot](screenshots/screen_1.png)
+![Second screenshot](screenshots/screen_2.png)
+![Third screenshot](screenshots/screen_3.png)
