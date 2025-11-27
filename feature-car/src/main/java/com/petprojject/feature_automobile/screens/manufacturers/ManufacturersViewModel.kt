@@ -44,7 +44,7 @@ class ManufacturersViewModel @Inject constructor(
             }
 
             ManufacturersContract.UiAction.OnBottomReached -> {
-                if (uiState.value.isLoading || uiState.value.totalPages == uiState.value.page) return
+                if (uiState.value.isLoading || uiState.value.totalPages+1 == uiState.value.page) return
                 collectManufacturers()
             }
         }
