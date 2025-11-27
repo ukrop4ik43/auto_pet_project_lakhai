@@ -6,7 +6,8 @@ interface ManufacturersContract {
         val manufacturersMap: Map<String, String>,
         val isLoading: Boolean = true,
         val error: String? = null,
-        val page: Int = 0
+        val page: Int = 0,
+        val totalPages: Int = 0
     )
 
     sealed interface UiAction {

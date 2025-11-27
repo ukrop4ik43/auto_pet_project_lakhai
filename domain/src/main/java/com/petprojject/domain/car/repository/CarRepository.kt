@@ -1,12 +1,13 @@
 package com.petprojject.domain.car.repository
 
 import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.car.model.ManufacturersData
 
 interface CarRepository {
     suspend fun getManufacturers(
         page: Int = 0,
         pageSize: Int = 15
-    ): RetrofitResult<Map<String, String>>
+    ): RetrofitResult<ManufacturersData>
 
     suspend fun getModels(
         manufacturer: String

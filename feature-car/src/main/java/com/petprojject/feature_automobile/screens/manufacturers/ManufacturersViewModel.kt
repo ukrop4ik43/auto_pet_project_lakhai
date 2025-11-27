@@ -8,6 +8,7 @@ import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.car.model.ManufacturersData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,7 +44,7 @@ class ManufacturersViewModel @Inject constructor(
             }
 
             ManufacturersContract.UiAction.OnBottomReached -> {
-                if (uiState.value.isLoading) return
+                if (uiState.value.isLoading || uiState.value.totalPages == uiState.value.page) return
                 collectManufacturers()
             }
         }
@@ -61,11 +62,12 @@ class ManufacturersViewModel @Inject constructor(
                 }
 
                 RetrofitResult.Loading -> updateUiState { copy(isLoading = true) }
-                is RetrofitResult.Success<Map<String, String>> -> updateUiState {
+                is RetrofitResult.Success<ManufacturersData> -> updateUiState {
                     copy(
-                        manufacturersMap = uiState.value.manufacturersMap + carsMap.data,
+                        manufacturersMap = uiState.value.manufacturersMap + carsMap.data.mapOfManufacturers,
                         isLoading = false,
-                        page = uiState.value.page + 1
+                        page = uiState.value.page + 1,
+                        totalPages = carsMap.data.totalPages
                     )
                 }
             }

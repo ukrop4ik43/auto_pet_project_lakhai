@@ -3,6 +3,7 @@ package com.petprojject.data.car.repository
 import com.petprojject.data.base.safeApiCall
 import com.petprojject.data.car.remote.CarApi
 import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.car.model.ManufacturersData
 import com.petprojject.domain.car.repository.CarRepository
 
 
@@ -10,10 +11,12 @@ class CarRepositoryImpl(private val apiService: CarApi) : CarRepository {
     override suspend fun getManufacturers(
         page: Int,
         pageSize: Int
-    ): RetrofitResult<Map<String, String>> {
+    ): RetrofitResult<ManufacturersData> {
         return safeApiCall(
             call = { apiService.getManufacturers(page = page, pageSize = pageSize) },
-            transform = { it.wkda }
+            transform = {
+                ManufacturersData(mapOfManufacturers = it.wkda, totalPages = it.totalPageCount)
+            }
         )
     }
 
