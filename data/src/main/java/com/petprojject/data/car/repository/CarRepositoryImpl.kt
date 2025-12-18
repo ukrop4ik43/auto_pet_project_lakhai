@@ -2,7 +2,7 @@ package com.petprojject.data.car.repository
 
 import com.petprojject.data.base.safeApiCall
 import com.petprojject.data.car.remote.CarApi
-import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.base.RetrofitResult
 import com.petprojject.domain.car.model.ManufacturersData
 import com.petprojject.domain.car.repository.CarRepository
 

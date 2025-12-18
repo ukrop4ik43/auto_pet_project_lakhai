@@ -1,4 +1,4 @@
-package com.petprojject.domain.book.base
+package com.petprojject.domain.base
 
 sealed class RetrofitResult<out T> {
     data class Success<out T>(val data: T) : RetrofitResult<T>()

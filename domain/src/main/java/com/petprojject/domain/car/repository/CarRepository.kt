@@ -1,6 +1,6 @@
 package com.petprojject.domain.car.repository
 
-import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.base.RetrofitResult
 import com.petprojject.domain.car.model.ManufacturersData
 
 interface CarRepository {

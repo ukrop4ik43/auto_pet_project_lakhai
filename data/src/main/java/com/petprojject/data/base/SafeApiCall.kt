@@ -1,6 +1,6 @@
 package com.petprojject.data.base
 
-import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.base.RetrofitResult
 import retrofit2.Response
 import java.net.UnknownHostException
 

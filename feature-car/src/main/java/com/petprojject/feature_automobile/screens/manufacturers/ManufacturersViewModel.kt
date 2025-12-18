@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
-import com.petprojject.domain.book.base.RetrofitResult
+import com.petprojject.domain.base.RetrofitResult
 import com.petprojject.domain.car.model.ManufacturersData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
