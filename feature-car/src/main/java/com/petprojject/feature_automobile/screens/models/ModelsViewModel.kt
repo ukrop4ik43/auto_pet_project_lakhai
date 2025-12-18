@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
@@ -22,6 +23,7 @@ class ModelsViewModel @Inject constructor(
     MVI<ModelsContract.UiState, ModelsContract.UiAction, ModelsContract.SideEffect> by mvi(
         initialUiState()
     ) {
+    private var collectJob: Job? = null
     override fun onAction(uiAction: ModelsContract.UiAction) {
         when (uiAction) {
             is ModelsContract.UiAction.Init -> {
@@ -74,10 +76,13 @@ class ModelsViewModel @Inject constructor(
     }
 
     private fun collectModels(manufacturerId: String? = null) {
-        viewModelScope.launch(ioDispatcher) {
-            when (val carsMap = carRepository.getModels(
-                manufacturer = manufacturerId ?: uiState.value.manufacturer.first
-            )) {
+        collectJob?.cancel()
+
+        collectJob = viewModelScope.launch(ioDispatcher) {
+            when (
+                val carsMap = carRepository.getModels(
+                    manufacturer = manufacturerId ?: uiState.value.manufacturer.first
+                )) {
                 is RetrofitResult.Error -> updateUiState {
                     copy(
                         error = carsMap.message,
