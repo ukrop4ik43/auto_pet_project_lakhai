@@ -33,7 +33,6 @@ fun NavHost() {
         onBack = { backStack.removeLastOrNull() },
         entryProvider = { key ->
             when (key) {
-
                 is Screen.Summary -> NavEntry(key) {
                     val vm: SummaryViewModel = hiltViewModel()
 
@@ -142,7 +141,6 @@ fun NavHost() {
                         onAction = vm::onAction
                     )
                 }
-
 
                 else -> NavEntry(Unit) { Text("Unknown route") }
             }
