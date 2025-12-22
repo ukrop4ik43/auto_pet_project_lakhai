@@ -31,7 +31,8 @@ data class AppCustomColors(
     val backIconColor: Color,
     val cardBorderColor: Color,
     val resultCardBackground: Color,
-    val choiceCardBackground: Color
+    val choiceCardBackground: Color,
+    val mainButtonBackground:Color
 )
 
 val LightCustomColors = AppCustomColors(
@@ -41,7 +42,8 @@ val LightCustomColors = AppCustomColors(
     backIconColor = Color(0xFF000000),
     cardBorderColor = Color(0xFF888888),
     resultCardBackground = Color(0xFFD3C6E3),
-    choiceCardBackground = Color(0xFF808080)
+    choiceCardBackground = Color(0xFF808080),
+    mainButtonBackground = Color(0xFFCCBFBF),
 )
 val LocalCustomColors = staticCompositionLocalOf<AppCustomColors> {
     error("Custom Colors not provided")

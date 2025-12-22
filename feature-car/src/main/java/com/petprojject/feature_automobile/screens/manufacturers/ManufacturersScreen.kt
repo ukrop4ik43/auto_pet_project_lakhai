@@ -44,13 +44,14 @@ fun ManufacturersScreen(
         },
         containerColor = CarTheme.customColors.backgroundColor,
     ) { padding ->
-
         ScaffoldContent(
-            isLoading = uiState.isLoading, error =
-                uiState.error, paddingValues = padding,
+            isLoading = uiState.isLoading,
+            error = uiState.error,
+            paddingValues = padding,
             onTryAgain = {
                 onAction(ManufacturersContract.UiAction.TryAgain)
-            }, content = {
+            },
+            content = {
                 LazyColumn(
                     modifier = Modifier.padding(padding),
                 ) {
@@ -59,16 +60,13 @@ fun ManufacturersScreen(
                             modifier = Modifier
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            text = item.second,
-                            onClick = {
+                                .fillMaxWidth(), text = item.second, onClick = {
                                 onAction(
                                     ManufacturersContract.UiAction.OnManufacturerClick(
                                         item
                                     )
                                 )
-                            }
-                        )
+                            })
                     }
                     item {
                         Spacer(modifier = Modifier.height(16.dp))

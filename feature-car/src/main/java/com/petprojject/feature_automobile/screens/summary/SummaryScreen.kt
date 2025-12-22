@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
 import com.petprojject.common_ui.components.ChoiceItem
+import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
@@ -135,7 +136,7 @@ fun SummaryScreen(
                         )
                     }
                     Spacer(Modifier.weight(1f))
-                    ChoiceItem(
+                    MainButton(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
                             .padding(vertical = 6.dp)

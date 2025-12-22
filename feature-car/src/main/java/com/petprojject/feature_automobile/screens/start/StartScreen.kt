@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.petprojject.common_ui.components.ChoiceItem
+import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 
@@ -33,7 +33,7 @@ fun StartScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ChoiceItem(
+        MainButton(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
                 .padding(vertical = 6.dp)
@@ -43,7 +43,7 @@ fun StartScreen(
                 onAction(StartContract.UiAction.OnChooseYourCarClick)
             })
         Spacer(Modifier.height(12.dp))
-        ChoiceItem(
+        MainButton(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
                 .padding(vertical = 6.dp)
