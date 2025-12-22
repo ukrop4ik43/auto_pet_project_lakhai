@@ -41,7 +41,8 @@ fun StartScreen(
             text = "Choose your car",
             onClick = {
                 onAction(StartContract.UiAction.OnChooseYourCarClick)
-            })
+            }
+        )
         Spacer(Modifier.height(12.dp))
         MainButton(
             modifier = Modifier
@@ -51,7 +52,8 @@ fun StartScreen(
             text = "History",
             onClick = {
                 onAction(StartContract.UiAction.OnHistoryClick)
-            })
+            }
+        )
     }
 }
 

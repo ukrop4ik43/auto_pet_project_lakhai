@@ -50,7 +50,6 @@ fun ModelsScreen(
             Box(Modifier.fillMaxWidth()) {
                 Text(
                     modifier = Modifier
-
                         .align(Alignment.Center),
                     text = "Choose model:",
                     style = TextStyle(fontSize = 32.sp)

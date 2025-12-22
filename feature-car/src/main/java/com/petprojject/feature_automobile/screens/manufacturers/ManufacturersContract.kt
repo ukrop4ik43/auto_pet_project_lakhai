@@ -13,11 +13,14 @@ interface ManufacturersContract {
     sealed interface UiAction {
         object Init : UiAction
         object TryAgain : UiAction
+        object OnBackClick : UiAction
         object OnBottomReached : UiAction
         class OnManufacturerClick(val manufacturer: Pair<String, String>) : UiAction
     }
 
     sealed interface SideEffect {
         class NavigateToModelsScreen(val manufacturer: Pair<String, String>) : SideEffect
+        object NavigateBack : SideEffect
+
     }
 }

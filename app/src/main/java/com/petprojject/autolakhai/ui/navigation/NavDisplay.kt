@@ -11,6 +11,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.petprojject.core.navigation.routes.Screen
+import com.petprojject.core.navigation.routes.Screen.*
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersContract
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersScreen
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersViewModel
@@ -156,8 +157,10 @@ fun NavHost() {
                         vm.sideEffect.collect {
                             when (it) {
                                 is ManufacturersContract.SideEffect.NavigateToModelsScreen -> backStack.add(
-                                    Screen.Models(it.manufacturer)
+                                    Models(it.manufacturer)
                                 )
+
+                                ManufacturersContract.SideEffect.NavigateBack -> backStack.removeLastOrNull()
                             }
                         }
                     }
