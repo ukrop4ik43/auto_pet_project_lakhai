@@ -17,6 +17,9 @@ import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersVie
 import com.petprojject.feature_automobile.screens.models.ModelsContract
 import com.petprojject.feature_automobile.screens.models.ModelsScreen
 import com.petprojject.feature_automobile.screens.models.ModelsViewModel
+import com.petprojject.feature_automobile.screens.start.StartContract
+import com.petprojject.feature_automobile.screens.start.StartScreen
+import com.petprojject.feature_automobile.screens.start.StartViewModel
 import com.petprojject.feature_automobile.screens.summary.SummaryContract
 import com.petprojject.feature_automobile.screens.summary.SummaryScreen
 import com.petprojject.feature_automobile.screens.summary.SummaryViewModel
@@ -27,12 +30,33 @@ import com.petprojject.feature_automobile.screens.years.YearsViewModel
 
 @Composable
 fun NavHost() {
-    val backStack = remember { mutableStateListOf<Any>(Screen.Manufacturers) }
+    val backStack = remember { mutableStateListOf<Any>(Screen.Start) }
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = { key ->
             when (key) {
+                is Screen.Start -> NavEntry(key) {
+                    val vm: StartViewModel = hiltViewModel()
+
+                    val uiState by vm.uiState.collectAsState()
+
+                    LaunchedEffect(vm.sideEffect) {
+                        vm.sideEffect.collect {
+                            when (it) {
+                                SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                                StartContract.SideEffect.GoToChooseYourCar -> backStack.add(Screen.Manufacturers)
+                                StartContract.SideEffect.GoToHistory -> backStack.add(Screen.History)
+                            }
+                        }
+                    }
+
+                    StartScreen(
+                        uiState = uiState,
+                        onAction = vm::onAction
+                    )
+                }
+
                 is Screen.Summary -> NavEntry(key) {
                     val vm: SummaryViewModel = hiltViewModel()
 
@@ -50,6 +74,7 @@ fun NavHost() {
                         vm.sideEffect.collect {
                             when (it) {
                                 SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                                SummaryContract.SideEffect.GoToStart -> backStack.add(Screen.Start)
                             }
                         }
                     }

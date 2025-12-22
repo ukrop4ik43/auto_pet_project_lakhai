@@ -1,13 +1,20 @@
 package com.petprojject.data.car.repository
 
 import com.petprojject.data.base.safeApiCall
+import com.petprojject.data.car.local.HistoryCarsDao
+import com.petprojject.data.car.mapper.toDomain
+import com.petprojject.data.car.mapper.toEntity
 import com.petprojject.data.car.remote.CarApi
 import com.petprojject.domain.base.RetrofitResult
+import com.petprojject.domain.car.model.CarHistoryItem
 import com.petprojject.domain.car.model.ManufacturersData
 import com.petprojject.domain.car.repository.CarRepository
 
 
-class CarRepositoryImpl(private val apiService: CarApi) : CarRepository {
+class CarRepositoryImpl(
+    private val apiService: CarApi,
+    private val historyCarsDao: HistoryCarsDao
+) : CarRepository {
     override suspend fun getManufacturers(
         page: Int,
         pageSize: Int
@@ -46,6 +53,24 @@ class CarRepositoryImpl(private val apiService: CarApi) : CarRepository {
         return map.filter { (_, value) ->
             value.normalize().contains(s)
         }
+    }
+
+    override suspend fun saveCarToHistory(
+        carHistoryItem: CarHistoryItem
+    ) {
+        historyCarsDao.insertCarToHistory(carHistoryItem.toEntity())
+    }
+
+    override suspend fun getAllCarsHistory(): List<CarHistoryItem> {
+        return historyCarsDao.getAllHistory().map { it.toDomain() }
+    }
+
+    override suspend fun deleteCarFromHistory(car: CarHistoryItem) {
+        historyCarsDao.deleteCar(car = car.toEntity())
+    }
+
+    override suspend fun deleteAllCarsFromHistory() {
+        historyCarsDao.deleteAllHistory()
     }
 
     fun String.normalize() = this.trim().lowercase()

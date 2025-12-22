@@ -23,7 +23,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,8 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
+import com.petprojject.common_ui.components.ChoiceItem
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
+import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 
 @Composable
@@ -112,25 +113,16 @@ fun ModelsScreen(
                         )
                     }
                     items(uiState.modelsMapForShow.toList()) { item ->
-                        Card(
+                        ChoiceItem(
                             modifier = Modifier
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
-                                .fillMaxWidth()
-                                .clickableNoIndication {
-                                    onAction(ModelsContract.UiAction.OnModelClick(item))
-                                },
-                            border = BorderStroke(1.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.choiceCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-                        ) {
-                            Text(
-                                modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                                    .padding(vertical = 12.dp),
-                                text = item.second
-                            )
-                        }
+                                .fillMaxWidth(),
+                            text = item.second,
+                            onClick = {
+                                onAction(ModelsContract.UiAction.OnModelClick(item))
+                            }
+                        )
                     }
                     item {
                         Spacer(modifier = Modifier.height(16.dp))
@@ -143,11 +135,13 @@ fun ModelsScreen(
 @Composable
 @Preview
 private fun ModelsScreenPreview() {
-    ModelsScreen(
-        onAction = {}, uiState = ModelsContract.UiState(
-            originalModelsMap = emptyMap(),
-            manufacturer = "" to "",
-            modelsMapForShow = emptyMap()
+    AutoPetProjectLakhaiTheme {
+        ModelsScreen(
+            onAction = {}, uiState = ModelsContract.UiState(
+                originalModelsMap = emptyMap(),
+                manufacturer = "" to "",
+                modelsMapForShow = emptyMap()
+            )
         )
-    )
+    }
 }

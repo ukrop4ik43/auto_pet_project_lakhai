@@ -22,4 +22,11 @@ sealed interface Screen : NavKey {
         val chosenModel: Pair<String, String>,
         val chosenYear: Pair<String, String>
     ) : Screen
+
+    @Serializable
+    data object Start : Screen
+
+    @Serializable
+    data object History : Screen
+
 }

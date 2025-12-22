@@ -2,6 +2,7 @@ package com.petprojject.feature_automobile.screens.summary
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.Card
@@ -28,10 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
+import com.petprojject.common_ui.components.ChoiceItem
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
+import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
-
 
 @Composable
 fun SummaryScreen(
@@ -70,78 +71,81 @@ fun SummaryScreen(
         ScaffoldContent(
             isLoading = uiState.isLoading, error =
                 uiState.error, paddingValues = padding, content = {
-                LazyColumn(
+                Column(
                     modifier = Modifier.padding(padding),
                 ) {
-                    item {
-                        Card(
+                    Card(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                    ) {
+                        BasicText(
                             modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "Manufacturer: ${uiState.manufacturer.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            text = "Manufacturer: ${uiState.manufacturer.second}",
+                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                            style = TextStyle(fontSize = 20.sp),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
-                    item {
-                        Card(
+                    Card(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                    ) {
+                        BasicText(
                             modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "Model: ${uiState.model.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            text = "Model: ${uiState.model.second}",
+                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                            style = TextStyle(fontSize = 20.sp),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
-                    item {
-                        Card(
+                    Card(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                    ) {
+                        BasicText(
                             modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "Year: ${uiState.year.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            text = "Year: ${uiState.year.second}",
+                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                            style = TextStyle(fontSize = 20.sp),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                    Spacer(Modifier.weight(1f))
+                    ChoiceItem(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        text = "Finish",
+                        onClick = {
+                            onAction(SummaryContract.UiAction.OnFinishClick)
                         }
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             })
     }
@@ -150,11 +154,13 @@ fun SummaryScreen(
 @Composable
 @Preview
 private fun SummaryScreenPreview() {
-    SummaryScreen(
-        onAction = {}, uiState = SummaryContract.UiState(
-            model = "" to "",
-            manufacturer = "" to "",
-            year = "" to ""
+    AutoPetProjectLakhaiTheme {
+        SummaryScreen(
+            onAction = {}, uiState = SummaryContract.UiState(
+                model = "" to "",
+                manufacturer = "" to "",
+                year = "" to ""
+            )
         )
-    )
+    }
 }

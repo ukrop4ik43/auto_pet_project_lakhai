@@ -55,9 +55,6 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): CarApi =
         retrofit.create(CarApi::class.java)
 
-    @Provides
-    @Singleton
-    fun provideBookRepository(apiService: CarApi): CarRepository =
-        CarRepositoryImpl(apiService)
+
 
 }

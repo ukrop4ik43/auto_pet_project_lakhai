@@ -1,6 +1,7 @@
 package com.petprojject.domain.car.repository
 
 import com.petprojject.domain.base.RetrofitResult
+import com.petprojject.domain.car.model.CarHistoryItem
 import com.petprojject.domain.car.model.ManufacturersData
 
 interface CarRepository {
@@ -14,10 +15,13 @@ interface CarRepository {
     ): RetrofitResult<Map<String, String>>
 
     suspend fun getModelYears(
-      manufacturer: String,
-      mainType: String
+        manufacturer: String,
+        mainType: String
     ): RetrofitResult<Map<String, String>>
 
-
     fun filterModels(map: Map<String, String>, search: String): Map<String, String>
+    suspend fun saveCarToHistory(carHistoryItem: CarHistoryItem)
+    suspend fun getAllCarsHistory(): List<CarHistoryItem>
+    suspend fun deleteCarFromHistory(car: CarHistoryItem)
+    suspend fun deleteAllCarsFromHistory()
 }
