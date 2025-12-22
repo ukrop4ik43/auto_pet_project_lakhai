@@ -13,7 +13,6 @@ import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 
-
 @Composable
 fun ChoiceItem(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
     Card(
