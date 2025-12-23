@@ -1,6 +1,7 @@
 package com.petprojject.feature_automobile
 
 import com.petprojject.domain.base.RetrofitResult
+import com.petprojject.domain.car.model.ManufacturersData
 import com.petprojject.domain.car.repository.CarRepository
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersContract
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersViewModel
@@ -49,7 +50,7 @@ class ManufacturersViewModelTest {
     fun `Init repo returns success`() = runTest {
         val manufacturers = mapOf("130" to "BMW", "160" to "Chevrolet")
         coEvery { carRepository.getManufacturers(page = 0) } returns
-                RetrofitResult.Success(manufacturers)
+                RetrofitResult.Success(ManufacturersData(manufacturers,1))
         viewModel.onAction(ManufacturersContract.UiAction.Init)
         advanceUntilIdle()
         val state = viewModel.uiState.value
@@ -79,7 +80,7 @@ class ManufacturersViewModelTest {
         val manufacturers = mapOf("1" to "Mazda")
         coEvery { carRepository.getManufacturers(any()) } returnsMany listOf(
             RetrofitResult.Error("Network Error"),
-            RetrofitResult.Success(manufacturers)
+            RetrofitResult.Success(ManufacturersData(manufacturers,1))
         )
         viewModel.onAction(ManufacturersContract.UiAction.Init)
         advanceUntilIdle()
@@ -98,9 +99,9 @@ class ManufacturersViewModelTest {
         val page0 = mapOf("1" to "BMW")
         val page1 = mapOf("2" to "Audi")
         coEvery { carRepository.getManufacturers(0) } returns
-                RetrofitResult.Success(page0)
+                RetrofitResult.Success(ManufacturersData(page0,15))
         coEvery { carRepository.getManufacturers(1) } returns
-                RetrofitResult.Success(page1)
+                RetrofitResult.Success(ManufacturersData(page1,15))
         viewModel.onAction(ManufacturersContract.UiAction.Init)
         advanceUntilIdle()
         viewModel.onAction(ManufacturersContract.UiAction.OnBottomReached)

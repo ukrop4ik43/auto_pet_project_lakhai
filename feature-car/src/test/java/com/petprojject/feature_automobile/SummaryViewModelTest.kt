@@ -1,8 +1,11 @@
 package com.petprojject.feature_automobile
 
 
+import com.petprojject.domain.car.repository.CarRepository
 import com.petprojject.feature_automobile.screens.summary.SummaryContract
 import com.petprojject.feature_automobile.screens.summary.SummaryViewModel
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNull
@@ -24,11 +27,14 @@ class SummaryViewModelTest {
 
     private lateinit var viewModel: SummaryViewModel
     private val testDispatcher = StandardTestDispatcher()
+    @MockK
+    lateinit var carRepository: CarRepository
 
     @Before
     fun setup() {
+        MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = SummaryViewModel()
+        viewModel = SummaryViewModel(carRepository)
     }
 
     @After

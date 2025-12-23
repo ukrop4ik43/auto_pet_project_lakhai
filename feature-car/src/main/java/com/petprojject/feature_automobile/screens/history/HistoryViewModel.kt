@@ -4,15 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
+import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.car.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val carRepository: CarRepository
+    private val carRepository: CarRepository,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<HistoryContract.UiState, HistoryContract.UiAction, HistoryContract.SideEffect> by mvi(
         initialUiState()
@@ -32,14 +35,14 @@ class HistoryViewModel @Inject constructor(
             }
 
             is HistoryContract.UiAction.DeleteItem -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch(ioDispatcher) {
                     carRepository.deleteCarFromHistory(uiAction.car)
                     getHistoryFromDb()
                 }
             }
 
             HistoryContract.UiAction.OnClearClick -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch(ioDispatcher) {
                     carRepository.deleteAllCarsFromHistory()
                     getHistoryFromDb()
                 }
@@ -48,11 +51,10 @@ class HistoryViewModel @Inject constructor(
     }
 
     private fun getHistoryFromDb() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             updateUiState { copy(isLoading = true) }
             val newList = carRepository.getAllCarsHistory()
-            updateUiState { copy(isLoading = false) }
-            updateUiState { copy(listOfHistory = newList) }
+            updateUiState { copy(listOfHistory = newList, isLoading = false) }
         }
     }
 }
