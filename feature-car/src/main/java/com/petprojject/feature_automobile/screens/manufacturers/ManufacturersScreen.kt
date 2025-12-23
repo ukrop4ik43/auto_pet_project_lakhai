@@ -49,7 +49,7 @@ fun ManufacturersScreen(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.choose_manufacturer) + ":",
-                    style = TextStyle(fontSize = 32.sp)
+                    style = TextStyle(fontSize = 24.sp)
                 )
                 Icon(
                     modifier = Modifier

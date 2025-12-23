@@ -56,7 +56,7 @@ fun ModelsScreen(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.choose_model) + ":",
-                    style = TextStyle(fontSize = 32.sp)
+                    style = TextStyle(fontSize = 24.sp)
                 )
                 Icon(
                     modifier = Modifier

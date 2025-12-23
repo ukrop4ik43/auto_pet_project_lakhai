@@ -56,7 +56,7 @@ fun SummaryScreen(
 
                         .align(Alignment.Center),
                     text = stringResource(R.string.summary),
-                    style = TextStyle(fontSize = 32.sp)
+                    style = TextStyle(fontSize = 24.sp)
                 )
                 Icon(
                     modifier = Modifier

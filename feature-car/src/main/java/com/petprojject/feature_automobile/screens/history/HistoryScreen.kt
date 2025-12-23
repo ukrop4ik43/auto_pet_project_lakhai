@@ -53,7 +53,7 @@ fun HistoryScreen(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.history),
-                    style = TextStyle(fontSize = 32.sp)
+                    style = TextStyle(fontSize = 24.sp)
                 )
                 Icon(
                     modifier = Modifier
