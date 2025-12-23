@@ -8,3 +8,4 @@ The project also includes unit and instrumented tests, ensuring reliability and 
 ![First screenshot](screenshots/screen_1.png)
 ![Second screenshot](screenshots/screen_2.png)
 ![Third screenshot](screenshots/screen_3.png)
+![Fourth screenshot](screenshots/screen_4.png)
