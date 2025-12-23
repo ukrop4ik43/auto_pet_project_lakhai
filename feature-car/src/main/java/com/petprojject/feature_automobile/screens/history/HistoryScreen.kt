@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.MainButton
 import com.petprojject.feature_automobile.R
 import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ScaffoldContent
@@ -31,12 +32,14 @@ import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_automobile.components.CarHistoryItem
+import com.petprojject.feature_automobile.screens.start.StartContract
 
 @Composable
 fun HistoryScreen(
     uiState: HistoryContract.UiState,
     onAction: (HistoryContract.UiAction) -> Unit,
 ) {
+
     Scaffold(
         Modifier
             .fillMaxSize()
@@ -73,24 +76,37 @@ fun HistoryScreen(
                 onAction(HistoryContract.UiAction.TryAgain)
             },
             content = {
-                LazyColumn(
+                Box(
                     modifier = Modifier.padding(padding),
                 ) {
-                    items(uiState.listOfHistory) { item ->
-                        CarHistoryItem(
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                                .fillMaxWidth(),
-                            car = item,
-                            onItemDelete = {
-                                onAction(HistoryContract.UiAction.DeleteItem(item))
-                            }
-                        )
-                        HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
+                    LazyColumn(Modifier.fillMaxSize()) {
+                        items(uiState.listOfHistory) { item ->
+                            CarHistoryItem(
+                                modifier = Modifier
+                                    .padding(start = 8.dp)
+                                    .fillMaxWidth(),
+                                car = item,
+                                onItemDelete = {
+                                    onAction(HistoryContract.UiAction.DeleteItem(item))
+                                }
+                            )
+                            HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
-                    item {
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+                    MainButton(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        text = stringResource(R.string.clear),
+                        onClick = {
+                            onAction(HistoryContract.UiAction.OnClearClick)
+                        }
+                    )
                 }
             })
     }

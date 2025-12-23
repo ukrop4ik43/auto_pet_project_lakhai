@@ -37,6 +37,13 @@ class HistoryViewModel @Inject constructor(
                     getHistoryFromDb()
                 }
             }
+
+            HistoryContract.UiAction.OnClearClick -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    carRepository.deleteAllCarsFromHistory()
+                    getHistoryFromDb()
+                }
+            }
         }
     }
 
