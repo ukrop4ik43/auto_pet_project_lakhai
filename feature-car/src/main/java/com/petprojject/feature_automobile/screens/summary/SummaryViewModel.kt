@@ -11,7 +11,6 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 @HiltViewModel
 class SummaryViewModel @Inject constructor(
     private val carRepository: CarRepository
