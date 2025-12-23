@@ -5,6 +5,6 @@ Room was added for caching history of choices.
 The app uses the latest Jetpack Navigation libraries, offering modern and type-safe navigation between screens.
 The project also includes unit and instrumented tests, ensuring reliability and maintainability.
 
-![First screenshot](screenshots/screen_1.png)
-![Second screenshot](screenshots/screen_2.png)
-![Third screenshot](screenshots/screen_3.png)
+![First screenshot](screenshots/screen_1.jpg)
+![Second screenshot](screenshots/screen_2.jpg)
+![Third screenshot](screenshots/screen_3.jpg)
