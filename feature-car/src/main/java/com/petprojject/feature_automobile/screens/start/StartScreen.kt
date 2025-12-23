@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
+import com.petprojject.feature_automobile.R
 
 @Composable
 fun StartScreen(
@@ -38,7 +40,7 @@ fun StartScreen(
                 .padding(horizontal = 12.dp)
                 .padding(vertical = 6.dp)
                 .fillMaxWidth(),
-            text = "Choose your car",
+            text = stringResource(R.string.choose_your_car),
             onClick = {
                 onAction(StartContract.UiAction.OnChooseYourCarClick)
             }
@@ -49,7 +51,7 @@ fun StartScreen(
                 .padding(horizontal = 12.dp)
                 .padding(vertical = 6.dp)
                 .fillMaxWidth(),
-            text = "History",
+            text = stringResource(R.string.history),
             onClick = {
                 onAction(StartContract.UiAction.OnHistoryClick)
             }

@@ -18,11 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.petprojject.common_ui.R
+import com.petprojject.feature_automobile.R
+import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ChoiceItem
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
@@ -44,7 +46,7 @@ fun ManufacturersScreen(
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
-                    text = "Choose manufacturer:",
+                    text = stringResource(R.string.choose_manufacturer)+":",
                     style = TextStyle(fontSize = 32.sp)
                 )
                 Icon(
@@ -54,7 +56,7 @@ fun ManufacturersScreen(
                         .clickableNoIndication {
                             onAction(ManufacturersContract.UiAction.OnBackClick)
                         },
-                    painter = painterResource(R.drawable.arrow_back),
+                    painter = painterResource(commonUiR.drawable.arrow_back),
                     tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )

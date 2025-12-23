@@ -24,12 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.petprojject.common_ui.R
+import com.petprojject.feature_automobile.R
+import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ChoiceItem
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
@@ -51,7 +53,7 @@ fun ModelsScreen(
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
-                    text = "Choose model:",
+                    text = stringResource(R.string.choose_model) + ":",
                     style = TextStyle(fontSize = 32.sp)
                 )
                 Icon(
@@ -61,7 +63,7 @@ fun ModelsScreen(
                         .clickableNoIndication {
                             onAction(ModelsContract.UiAction.OnBackClick)
                         },
-                    painter = painterResource(R.drawable.arrow_back),
+                    painter = painterResource(commonUiR.drawable.arrow_back),
                     tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
@@ -91,7 +93,7 @@ fun ModelsScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp),
-                                text = "Manufacturer: ${uiState.manufacturer.second}",
+                                text = "${stringResource(R.string.manufacturer) + ":"} ${uiState.manufacturer.second}",
                                 autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
                                 style = TextStyle(fontSize = 20.sp),
                                 maxLines = 1,
@@ -103,7 +105,7 @@ fun ModelsScreen(
                         TextField(
                             value = uiState.searchText,
                             onValueChange = { onAction(ModelsContract.UiAction.OnSearchTextChange(it)) },
-                            label = { Text("Enter model...") },
+                            label = { Text(stringResource(R.string.enter_model)) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp)

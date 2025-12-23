@@ -1,0 +1,14 @@
+<resources>
+    <string name="history">History</string>
+    <string name="choose_manufacturer">Choose manufacturer:</string>
+    <string name="choose_model">Choose model</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="enter_model">Enter model...</string>
+    <string name="choose_your_car">Choose your car</string>
+    <string name="summary">Summary</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
+    <string name="finish">Finish</string>
+    <string name="choose_years">Choose years</string>
+
+</resources>

@@ -19,11 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.petprojject.common_ui.R
+import com.petprojject.feature_automobile.R
+import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
@@ -45,7 +47,7 @@ fun HistoryScreen(
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
-                    text = "History",
+                    text = stringResource(R.string.history),
                     style = TextStyle(fontSize = 32.sp)
                 )
                 Icon(
@@ -55,7 +57,7 @@ fun HistoryScreen(
                         .clickableNoIndication {
                             onAction(HistoryContract.UiAction.OnBackClick)
                         },
-                    painter = painterResource(R.drawable.arrow_back),
+                    painter = painterResource(commonUiR.drawable.arrow_back),
                     tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )

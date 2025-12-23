@@ -22,17 +22,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.petprojject.common_ui.R
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
+import com.petprojject.feature_automobile.R
+import com.petprojject.common_ui.R as commonUiR
 
 @Composable
 fun SummaryScreen(
@@ -51,7 +53,7 @@ fun SummaryScreen(
                     modifier = Modifier
 
                         .align(Alignment.Center),
-                    text = "Summary",
+                    text = stringResource(R.string.summary),
                     style = TextStyle(fontSize = 32.sp)
                 )
                 Icon(
@@ -61,7 +63,7 @@ fun SummaryScreen(
                         .clickableNoIndication {
                             onAction(SummaryContract.UiAction.OnBackClick)
                         },
-                    painter = painterResource(R.drawable.arrow_back),
+                    painter = painterResource(commonUiR.drawable.arrow_back),
                     tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
@@ -87,7 +89,7 @@ fun SummaryScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            text = "Manufacturer: ${uiState.manufacturer.second}",
+                            text = "${R.string.manufacturer}: ${uiState.manufacturer.second}",
                             autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
                             style = TextStyle(fontSize = 20.sp),
                             maxLines = 1,
@@ -107,7 +109,7 @@ fun SummaryScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            text = "Model: ${uiState.model.second}",
+                            text = "${stringResource(R.string.model)}: ${uiState.model.second}",
                             autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
                             style = TextStyle(fontSize = 20.sp),
                             maxLines = 1,
@@ -127,7 +129,7 @@ fun SummaryScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            text = "Year: ${uiState.year.second}",
+                            text = "${stringResource(R.string.year)}: ${uiState.year.second}",
                             autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
                             style = TextStyle(fontSize = 20.sp),
                             maxLines = 1,
@@ -140,7 +142,7 @@ fun SummaryScreen(
                             .padding(horizontal = 12.dp)
                             .padding(vertical = 6.dp)
                             .fillMaxWidth(),
-                        text = "Finish",
+                        text = stringResource(R.string.finish),
                         onClick = {
                             onAction(SummaryContract.UiAction.OnFinishClick)
                         }
