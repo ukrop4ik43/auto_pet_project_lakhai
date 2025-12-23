@@ -28,7 +28,6 @@ import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
-import com.petprojject.feature_automobile.screens.models.ModelsContract
 
 @Composable
 fun ManufacturersScreen(
@@ -56,7 +55,7 @@ fun ManufacturersScreen(
                             onAction(ManufacturersContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = CarTheme.customColors.backIconColor,
+                    tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
             }

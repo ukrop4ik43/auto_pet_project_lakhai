@@ -62,7 +62,7 @@ fun ModelsScreen(
                             onAction(ModelsContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = CarTheme.customColors.backIconColor,
+                    tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
             }

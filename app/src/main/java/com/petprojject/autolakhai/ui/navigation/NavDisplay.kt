@@ -12,6 +12,9 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.petprojject.core.navigation.routes.Screen
 import com.petprojject.core.navigation.routes.Screen.*
+import com.petprojject.feature_automobile.screens.history.HistoryContract
+import com.petprojject.feature_automobile.screens.history.HistoryScreen
+import com.petprojject.feature_automobile.screens.history.HistoryViewModel
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersContract
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersScreen
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersViewModel
@@ -57,6 +60,30 @@ fun NavHost() {
                         onAction = vm::onAction
                     )
                 }
+
+                is Screen.History -> NavEntry(key) {
+                    val vm: HistoryViewModel = hiltViewModel()
+
+                    val uiState by vm.uiState.collectAsState()
+                    LaunchedEffect(Unit) {
+                        vm.onAction(
+                            HistoryContract.UiAction.Init
+                        )
+                    }
+                    LaunchedEffect(vm.sideEffect) {
+                        vm.sideEffect.collect {
+                            when (it) {
+                                HistoryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                            }
+                        }
+                    }
+
+                    HistoryScreen(
+                        uiState = uiState,
+                        onAction = vm::onAction
+                    )
+                }
+
 
                 is Screen.Summary -> NavEntry(key) {
                     val vm: SummaryViewModel = hiltViewModel()

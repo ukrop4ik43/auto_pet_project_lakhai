@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.R
-import com.petprojject.common_ui.components.ChoiceItem
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
@@ -63,7 +62,7 @@ fun SummaryScreen(
                             onAction(SummaryContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(R.drawable.arrow_back),
-                    tint = CarTheme.customColors.backIconColor,
+                    tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
             }

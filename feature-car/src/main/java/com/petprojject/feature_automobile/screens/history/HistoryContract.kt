@@ -11,6 +11,9 @@ interface HistoryContract {
 
     sealed interface UiAction {
         object Init : UiAction
+        class DeleteItem(val car: CarHistoryItem) : UiAction
+        object OnBackClick : UiAction
+        object TryAgain : UiAction
     }
 
     sealed interface SideEffect {
