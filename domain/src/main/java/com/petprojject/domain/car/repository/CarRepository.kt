@@ -24,4 +24,10 @@ interface CarRepository {
     suspend fun getAllCarsHistory(): List<CarHistoryItem>
     suspend fun deleteCarFromHistory(car: CarHistoryItem)
     suspend fun deleteAllCarsFromHistory()
+    fun generateGoogleUrl(car: CarHistoryItem): String
+    fun generateGoogleUrl(
+        manufacturer: String,
+        model: String,
+        year: String,
+    ): String
 }

@@ -19,13 +19,13 @@ interface SummaryContract {
             UiAction
 
         object OnBackClick : UiAction
-        object OnFinishClick: UiAction
-
+        object OnFinishClick : UiAction
+        object OnShowInGoogleClick : UiAction
     }
 
     sealed interface SideEffect {
         object GoBack : SideEffect
-        object GoToStart: SideEffect
-
+        object GoToStart : SideEffect
+        class GoToWebView(val url: String) : SideEffect
     }
 }

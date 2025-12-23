@@ -50,6 +50,16 @@ class SummaryViewModel @Inject constructor(
                     SummaryContract.SideEffect.GoToStart
                 )
             }
+
+            SummaryContract.UiAction.OnShowInGoogleClick -> viewModelScope.emitSideEffect(
+                SummaryContract.SideEffect.GoToWebView(
+                    carRepository.generateGoogleUrl(
+                        manufacturer = uiState.value.manufacturer.second,
+                        model = uiState.value.model.second,
+                        year = uiState.value.year.second
+                    )
+                )
+            )
         }
     }
 }

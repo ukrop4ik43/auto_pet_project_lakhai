@@ -29,4 +29,7 @@ sealed interface Screen : NavKey {
     @Serializable
     data object History : Screen
 
+    @Serializable
+    data class WebOpener(val url:String) : Screen
+
 }

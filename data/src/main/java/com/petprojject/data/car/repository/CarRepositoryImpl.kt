@@ -73,6 +73,22 @@ class CarRepositoryImpl(
         historyCarsDao.deleteAllHistory()
     }
 
+    override fun generateGoogleUrl(car: CarHistoryItem): String {
+        return "$GOOGLE_BASE_URL_WITH_QUERY${car.manufacturer}+${car.model}+${car.year}"
+
+    }
+
+    override fun generateGoogleUrl(
+        manufacturer: String,
+        model: String,
+        year: String
+    ): String {
+        return "$GOOGLE_BASE_URL_WITH_QUERY$manufacturer+$model+$year"
+    }
+
     fun String.normalize() = this.trim().lowercase()
 
+    companion object {
+        private const val GOOGLE_BASE_URL_WITH_QUERY = "https://www.google.com/search?q="
+    }
 }

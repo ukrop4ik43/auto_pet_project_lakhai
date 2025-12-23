@@ -1,5 +1,6 @@
 package com.petprojject.feature_automobile.screens.summary
 
+import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -145,6 +146,16 @@ fun SummaryScreen(
                             .padding(vertical = 6.dp)
                             .fillMaxWidth(), text = stringResource(R.string.finish), onClick = {
                             onAction(SummaryContract.UiAction.OnFinishClick)
+                        })
+                    Spacer(Modifier.height(4.dp))
+                    MainButton(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .padding(vertical = 6.dp)
+                            .fillMaxWidth(),
+                        text = stringResource(R.string.show_in_google),
+                        onClick = {
+                            onAction(SummaryContract.UiAction.OnShowInGoogleClick)
                         })
                     Spacer(modifier = Modifier.height(16.dp))
                 }

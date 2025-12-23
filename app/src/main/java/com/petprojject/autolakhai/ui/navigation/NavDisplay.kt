@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.petprojject.core.navigation.routes.Screen
@@ -27,6 +28,9 @@ import com.petprojject.feature_automobile.screens.start.StartViewModel
 import com.petprojject.feature_automobile.screens.summary.SummaryContract
 import com.petprojject.feature_automobile.screens.summary.SummaryScreen
 import com.petprojject.feature_automobile.screens.summary.SummaryViewModel
+import com.petprojject.feature_automobile.screens.webview.WebOpenerContract
+import com.petprojject.feature_automobile.screens.webview.WebOpenerScreen
+import com.petprojject.feature_automobile.screens.webview.WebOpenerViewModel
 import com.petprojject.feature_automobile.screens.years.YearsContract
 import com.petprojject.feature_automobile.screens.years.YearsScreen
 import com.petprojject.feature_automobile.screens.years.YearsViewModel
@@ -34,13 +38,13 @@ import com.petprojject.feature_automobile.screens.years.YearsViewModel
 
 @Composable
 fun NavHost() {
-    val backStack = remember { mutableStateListOf<Any>(Screen.Start) }
+    val backStack = remember { mutableStateListOf<Any>(Start) }
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = { key ->
             when (key) {
-                is Screen.Start -> NavEntry(key) {
+                is Start -> NavEntry(key) {
                     val vm: StartViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()
@@ -61,7 +65,32 @@ fun NavHost() {
                     )
                 }
 
-                is Screen.History -> NavEntry(key) {
+                is WebOpener -> NavEntry(key) {
+                    val vm: WebOpenerViewModel = hiltViewModel()
+
+                    val uiState by vm.uiState.collectAsState()
+                    LaunchedEffect(key) {
+                        vm.onAction(WebOpenerContract.UiAction.Init(key.url))
+                    }
+                    LaunchedEffect(vm.sideEffect) {
+                        vm.sideEffect.collect {
+                            when (it) {
+                                SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                                StartContract.SideEffect.GoToChooseYourCar -> backStack.add(
+                                    Manufacturers
+                                )
+
+                                StartContract.SideEffect.GoToHistory -> backStack.add(History)
+                            }
+                        }
+                    }
+
+                    WebOpenerScreen(
+                        state = uiState
+                    )
+                }
+
+                is History -> NavEntry(key) {
                     val vm: HistoryViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()
@@ -85,7 +114,7 @@ fun NavHost() {
                 }
 
 
-                is Screen.Summary -> NavEntry(key) {
+                is Summary -> NavEntry(key) {
                     val vm: SummaryViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()
@@ -102,7 +131,12 @@ fun NavHost() {
                         vm.sideEffect.collect {
                             when (it) {
                                 SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
-                                SummaryContract.SideEffect.GoToStart -> backStack.add(Screen.Start)
+                                SummaryContract.SideEffect.GoToStart -> backStack.add(Start)
+                                is SummaryContract.SideEffect.GoToWebView -> backStack.add(
+                                    WebOpener(
+                                        it.url
+                                    )
+                                )
                             }
                         }
                     }
@@ -112,7 +146,7 @@ fun NavHost() {
                     )
                 }
 
-                is Screen.Models -> NavEntry(key) {
+                is Models -> NavEntry(key) {
                     val vm: ModelsViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()
@@ -124,7 +158,7 @@ fun NavHost() {
                             when (it) {
                                 is ModelsContract.SideEffect.NavigateToYearsScreen -> {
                                     backStack.add(
-                                        Screen.Years(it.manufacturer, it.model)
+                                        Years(it.manufacturer, it.model)
                                     )
                                 }
 
@@ -138,7 +172,7 @@ fun NavHost() {
                     )
                 }
 
-                is Screen.Years -> NavEntry(key) {
+                is Years -> NavEntry(key) {
                     val vm: YearsViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()
@@ -155,7 +189,7 @@ fun NavHost() {
                             when (it) {
                                 is YearsContract.SideEffect.NavigateToResultScreen -> {
                                     backStack.add(
-                                        Screen.Summary(
+                                        Summary(
                                             chosenManufacturer = it.manufacturer,
                                             chosenModel = it.model,
                                             chosenYear = it.year
@@ -173,7 +207,7 @@ fun NavHost() {
                     )
                 }
 
-                is Screen.Manufacturers -> NavEntry(key) {
+                is Manufacturers -> NavEntry(key) {
                     val vm: ManufacturersViewModel = hiltViewModel()
 
                     val uiState by vm.uiState.collectAsState()

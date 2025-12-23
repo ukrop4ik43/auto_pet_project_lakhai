@@ -9,6 +9,7 @@
     <string name="model">Model</string>
     <string name="year">Year</string>
     <string name="finish">Finish</string>
+    <string name="show_in_google">Show in google</string>
     <string name="choose_years">Choose years</string>
     <string name="clear">Clear</string>
 
