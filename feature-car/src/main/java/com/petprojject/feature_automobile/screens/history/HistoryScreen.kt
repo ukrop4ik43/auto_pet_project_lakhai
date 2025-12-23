@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,16 +40,16 @@ fun HistoryScreen(
     uiState: HistoryContract.UiState,
     onAction: (HistoryContract.UiAction) -> Unit,
 ) {
-
     Scaffold(
         Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-            .systemBarsPadding(),
+            .fillMaxSize(),
         topBar = {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding()
+            ) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
@@ -79,7 +80,9 @@ fun HistoryScreen(
             },
             content = {
                 Box(
-                    modifier = Modifier.padding(padding),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
                 ) {
                     LazyColumn(Modifier.fillMaxSize()) {
                         items(uiState.listOfHistory) { item ->

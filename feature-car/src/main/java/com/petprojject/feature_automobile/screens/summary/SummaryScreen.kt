@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
@@ -43,14 +44,13 @@ fun SummaryScreen(
 ) {
     Scaffold(
         Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-            .systemBarsPadding(),
+            .fillMaxSize(),
         containerColor = CarTheme.customColors.backgroundColor,
         topBar = {
             Box(Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)) {
+                .padding(vertical = 8.dp)
+                .statusBarsPadding()) {
                 Text(
                     modifier = Modifier
 

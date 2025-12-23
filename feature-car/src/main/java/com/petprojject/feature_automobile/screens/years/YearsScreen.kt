@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -44,13 +45,14 @@ fun YearsScreen(
 ) {
     Scaffold(
         Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-            .systemBarsPadding(),
+            .fillMaxSize(),
         topBar = {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding()
+            ) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
@@ -78,7 +80,9 @@ fun YearsScreen(
                 onAction(YearsContract.UiAction.TryAgain)
             }, content = {
                 LazyColumn(
-                    modifier = Modifier.padding(padding),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
                 ) {
                     item {
                         Card(

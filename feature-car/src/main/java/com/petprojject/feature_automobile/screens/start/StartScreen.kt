@@ -29,9 +29,9 @@ fun StartScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(CarTheme.customColors.backgroundColor)
             .navigationBarsPadding()
-            .systemBarsPadding()
-            .background(CarTheme.customColors.backgroundColor),
+            .systemBarsPadding(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
