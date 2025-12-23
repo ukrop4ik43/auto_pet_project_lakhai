@@ -48,7 +48,9 @@ fun SummaryScreen(
             .systemBarsPadding(),
         containerColor = CarTheme.customColors.backgroundColor,
         topBar = {
-            Box(Modifier.fillMaxWidth().padding(top=8.dp)) {
+            Box(Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)) {
                 Text(
                     modifier = Modifier
 

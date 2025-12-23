@@ -46,7 +46,9 @@ fun HistoryScreen(
             .navigationBarsPadding()
             .systemBarsPadding(),
         topBar = {
-            Box(Modifier.fillMaxWidth().padding(top=8.dp)) {
+            Box(Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
