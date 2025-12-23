@@ -25,7 +25,7 @@ import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.domain.car.model.CarHistoryItem
 
 @Composable
-fun CarHistoryItem(
+fun CarHistoryItemComponent(
     modifier: Modifier = Modifier,
     car: CarHistoryItem,
     onItemDelete: (CarHistoryItem) -> Unit
@@ -87,9 +87,9 @@ fun CarHistoryItem(
 
 @Composable
 @Preview
-private fun CarHistoryItemPreview() {
+private fun CarHistoryItemComponentPreview() {
     AutoPetProjectLakhaiTheme {
-        CarHistoryItem(
+        CarHistoryItemComponent(
             modifier = Modifier.fillMaxWidth(),
             car = CarHistoryItem(
                 id = 0,

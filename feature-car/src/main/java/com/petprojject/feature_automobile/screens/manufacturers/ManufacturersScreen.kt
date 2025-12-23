@@ -41,10 +41,12 @@ fun ManufacturersScreen(
         Modifier
             .fillMaxSize(),
         topBar = {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .statusBarsPadding()) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding()
+            ) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
@@ -104,7 +106,14 @@ fun ManufacturersScreen(
 private fun ManufacturerScreenPreview() {
     AutoPetProjectLakhaiTheme {
         ManufacturersScreen(
-            onAction = {}, uiState = ManufacturersContract.UiState(manufacturersMap = mapOf())
+            onAction = {},
+            uiState = ManufacturersContract.UiState(
+                manufacturersMap = mapOf(
+                    "1" to "Audi",
+                    "2" to "BMW",
+                    "2" to "Mercedes"
+                )
+            )
         )
     }
 }

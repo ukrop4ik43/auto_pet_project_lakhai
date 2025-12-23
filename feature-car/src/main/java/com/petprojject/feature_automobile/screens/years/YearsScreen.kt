@@ -162,9 +162,9 @@ fun YearsScreen(
 private fun YearsScreenPreview() {
     YearsScreen(
         onAction = {}, uiState = YearsContract.UiState(
-            yearsMap = emptyMap(),
-            manufacturer = "" to "",
-            model = "" to ""
+            yearsMap = mapOf("2023" to "2023"),
+            manufacturer = "1" to "Audi",
+            model = "1" to "A1"
         )
     )
 }

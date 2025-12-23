@@ -141,9 +141,17 @@ private fun ModelsScreenPreview() {
     AutoPetProjectLakhaiTheme {
         ModelsScreen(
             onAction = {}, uiState = ModelsContract.UiState(
-                originalModelsMap = emptyMap(),
-                manufacturer = "" to "",
-                modelsMapForShow = emptyMap()
+                originalModelsMap = mapOf(
+                    "1" to "X3",
+                    "2" to "X4",
+                    "2" to "X5"
+                ),
+                manufacturer = "2" to "Audi",
+                modelsMapForShow = mapOf(
+                    "1" to "X3",
+                    "2" to "X4",
+                    "2" to "X5"
+                )
             )
         )
     }

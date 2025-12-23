@@ -43,14 +43,13 @@ fun SummaryScreen(
     onAction: (SummaryContract.UiAction) -> Unit,
 ) {
     Scaffold(
-        Modifier
-            .fillMaxSize(),
-        containerColor = CarTheme.customColors.backgroundColor,
-        topBar = {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .statusBarsPadding()) {
+        Modifier.fillMaxSize(), containerColor = CarTheme.customColors.backgroundColor, topBar = {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding()
+            ) {
                 Text(
                     modifier = Modifier
 
@@ -70,11 +69,12 @@ fun SummaryScreen(
                     contentDescription = null
                 )
             }
-        }
-    ) { padding ->
+        }) { padding ->
         ScaffoldContent(
-            isLoading = uiState.isLoading, error =
-                uiState.error, paddingValues = padding, content = {
+            isLoading = uiState.isLoading,
+            error = uiState.error,
+            paddingValues = padding,
+            content = {
                 Column(
                     modifier = Modifier.padding(padding),
                 ) {
@@ -143,12 +143,9 @@ fun SummaryScreen(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
                             .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        text = stringResource(R.string.finish),
-                        onClick = {
+                            .fillMaxWidth(), text = stringResource(R.string.finish), onClick = {
                             onAction(SummaryContract.UiAction.OnFinishClick)
-                        }
-                    )
+                        })
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             })
@@ -161,9 +158,7 @@ private fun SummaryScreenPreview() {
     AutoPetProjectLakhaiTheme {
         SummaryScreen(
             onAction = {}, uiState = SummaryContract.UiState(
-                model = "" to "",
-                manufacturer = "" to "",
-                year = "" to ""
+                model = "1" to "X5", manufacturer = "1" to "Audi", year = "2023" to "2023"
             )
         )
     }

@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
@@ -32,8 +30,8 @@ import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
-import com.petprojject.feature_automobile.components.CarHistoryItem
-import com.petprojject.feature_automobile.screens.start.StartContract
+import com.petprojject.domain.car.model.CarHistoryItem
+import com.petprojject.feature_automobile.components.CarHistoryItemComponent
 
 @Composable
 fun HistoryScreen(
@@ -86,7 +84,7 @@ fun HistoryScreen(
                 ) {
                     LazyColumn(Modifier.fillMaxSize()) {
                         items(uiState.listOfHistory) { item ->
-                            CarHistoryItem(
+                            CarHistoryItemComponent(
                                 modifier = Modifier
                                     .padding(start = 8.dp)
                                     .fillMaxWidth(),
@@ -121,6 +119,40 @@ fun HistoryScreen(
 @Preview
 private fun HistoryScreenPreview() {
     AutoPetProjectLakhaiTheme {
-        HistoryScreen(uiState = HistoryContract.UiState(), onAction = {})
+        HistoryScreen(
+            uiState = HistoryContract.UiState(
+                listOfHistory = listOf(
+                    CarHistoryItem(
+                        id = 1L,
+                        manufacturer = "Toyota",
+                        model = "Corolla",
+                        year = "2018"
+                    ),
+                    CarHistoryItem(
+                        id = 2L,
+                        manufacturer = "BMW",
+                        model = "X5",
+                        year = "2020"
+                    ),
+                    CarHistoryItem(
+                        id = 3L,
+                        manufacturer = "Audi",
+                        model = "A4",
+                        year = "2019"
+                    ),
+                    CarHistoryItem(
+                        id = 4L,
+                        manufacturer = "Tesla",
+                        model = "Model 3",
+                        year = "2021"
+                    ),
+                    CarHistoryItem(
+                        id = 5L,
+                        manufacturer = "Volkswagen",
+                        model = "Golf",
+                        year = "2017"
+                    )
+                )
+            ), onAction = {})
     }
 }
