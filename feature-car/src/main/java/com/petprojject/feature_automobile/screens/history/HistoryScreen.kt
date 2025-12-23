@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -76,11 +77,14 @@ fun HistoryScreen(
                     items(uiState.listOfHistory) { item ->
                         CarHistoryItem(
                             modifier = Modifier
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                                .fillMaxWidth(), car = item, onItemDelete = {
+                                .padding(start = 8.dp)
+                                .fillMaxWidth(),
+                            car = item,
+                            onItemDelete = {
                                 onAction(HistoryContract.UiAction.DeleteItem(item))
                             }
                         )
+                        HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
                     }
                     item {
                         Spacer(modifier = Modifier.height(16.dp))

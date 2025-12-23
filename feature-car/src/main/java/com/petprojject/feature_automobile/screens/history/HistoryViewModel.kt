@@ -34,6 +34,7 @@ class HistoryViewModel @Inject constructor(
             is HistoryContract.UiAction.DeleteItem -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     carRepository.deleteCarFromHistory(uiAction.car)
+                    getHistoryFromDb()
                 }
             }
         }
