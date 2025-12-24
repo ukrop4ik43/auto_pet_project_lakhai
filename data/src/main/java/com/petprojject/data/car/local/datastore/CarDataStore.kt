@@ -8,8 +8,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
 
 class CarDataStore(private val context: Context) {
-    val IS_INSTRUCTIONS_OPENED = booleanPreferencesKey("is_instructions_opened")
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+    private val IS_INSTRUCTIONS_OPENED = booleanPreferencesKey("is_instructions_opened")
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     suspend fun getIsInstructionsOpened(): Boolean {
         return context.dataStore.data.first()[IS_INSTRUCTIONS_OPENED] ?: false
     }
