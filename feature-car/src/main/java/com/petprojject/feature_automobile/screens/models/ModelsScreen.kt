@@ -13,20 +13,31 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,19 +55,24 @@ fun ModelsScreen(
     uiState: ModelsContract.UiState,
     onAction: (ModelsContract.UiAction) -> Unit,
 ) {
+    val focusManager = LocalFocusManager.current
+
     Scaffold(
         Modifier
             .fillMaxSize(),
         topBar = {
-            Box(Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .statusBarsPadding()) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding()
+            ) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.choose_model) + ":",
-                    style = TextStyle(fontSize = 24.sp)
+                    style = TextStyle(fontSize = 24.sp),
+                    color = CarTheme.customColors.textColor
                 )
                 Icon(
                     modifier = Modifier
@@ -104,15 +120,52 @@ fun ModelsScreen(
                         }
                     }
                     item {
-                        TextField(
+                        OutlinedTextField(
                             value = uiState.searchText,
                             onValueChange = { onAction(ModelsContract.UiAction.OnSearchTextChange(it)) },
                             label = { Text(stringResource(R.string.enter_model)) },
+                            shape = RoundedCornerShape(12.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp),
+                                .padding(horizontal = 12.dp, vertical = 6.dp),
                             singleLine = true,
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = null,
+                                    tint = CarTheme.customColors.descriptionColor
+                                )
+                            },
+                            trailingIcon = {
+                                if (uiState.searchText.isNotEmpty()) {
+                                    IconButton(onClick = {
+                                        onAction(
+                                            ModelsContract.UiAction.OnSearchTextChange(
+                                                ""
+                                            )
+                                        )
+                                    }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = "Clear",
+                                            tint = CarTheme.customColors.descriptionColor
+                                        )
+                                    }
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                            keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = CarTheme.customColors.textColor,
+                                unfocusedTextColor = CarTheme.customColors.textColor,
+                                cursorColor = CarTheme.customColors.tryAgainButtonContainer,
+                                focusedLabelColor = CarTheme.customColors.tryAgainButtonContainer,
+                                unfocusedLabelColor = CarTheme.customColors.descriptionColor,
+                                focusedBorderColor = CarTheme.customColors.tryAgainButtonContainer,
+                                unfocusedBorderColor = CarTheme.customColors.cardBorderColor,
+                                focusedContainerColor = CarTheme.customColors.backgroundColor,
+                                unfocusedContainerColor = CarTheme.customColors.backgroundColor
+                            )
                         )
                     }
                     items(uiState.modelsMapForShow.toList()) { item ->

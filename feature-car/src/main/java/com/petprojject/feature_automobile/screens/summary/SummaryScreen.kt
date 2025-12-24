@@ -56,7 +56,8 @@ fun SummaryScreen(
 
                         .align(Alignment.Center),
                     text = stringResource(R.string.summary),
-                    style = TextStyle(fontSize = 24.sp)
+                    style = TextStyle(fontSize = 24.sp),
+                    color = CarTheme.customColors.textColor
                 )
                 Icon(
                     modifier = Modifier

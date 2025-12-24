@@ -51,7 +51,8 @@ fun ManufacturersScreen(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.choose_manufacturer) + ":",
-                    style = TextStyle(fontSize = 24.sp)
+                    style = TextStyle(fontSize = 24.sp),
+                    color = CarTheme.customColors.textColor
                 )
                 Icon(
                     modifier = Modifier

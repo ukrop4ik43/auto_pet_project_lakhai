@@ -52,7 +52,9 @@ fun HistoryScreen(
                     modifier = Modifier
                         .align(Alignment.Center),
                     text = stringResource(R.string.history),
-                    style = TextStyle(fontSize = 24.sp)
+                    style = TextStyle(fontSize = 24.sp),
+                    color = CarTheme.customColors.textColor
+
                 )
                 Icon(
                     modifier = Modifier
