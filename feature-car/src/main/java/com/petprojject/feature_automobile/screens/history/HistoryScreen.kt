@@ -54,7 +54,6 @@ fun HistoryScreen(
                     text = stringResource(R.string.history),
                     style = TextStyle(fontSize = 24.sp),
                     color = CarTheme.customColors.textColor
-
                 )
                 Icon(
                     modifier = Modifier

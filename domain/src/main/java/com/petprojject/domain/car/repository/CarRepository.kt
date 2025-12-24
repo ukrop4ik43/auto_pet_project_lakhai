@@ -6,8 +6,7 @@ import com.petprojject.domain.car.model.ManufacturersData
 
 interface CarRepository {
     suspend fun getManufacturers(
-        page: Int = 0,
-        pageSize: Int = 15
+        page: Int = 0, pageSize: Int = 15
     ): RetrofitResult<ManufacturersData>
 
     suspend fun getModels(
@@ -15,8 +14,7 @@ interface CarRepository {
     ): RetrofitResult<Map<String, String>>
 
     suspend fun getModelYears(
-        manufacturer: String,
-        mainType: String
+        manufacturer: String, mainType: String
     ): RetrofitResult<Map<String, String>>
 
     fun filterModels(map: Map<String, String>, search: String): Map<String, String>
@@ -33,5 +31,4 @@ interface CarRepository {
 
     suspend fun isInstructionsShowed(): Boolean
     suspend fun setInstructionsShowedTrue()
-
 }
