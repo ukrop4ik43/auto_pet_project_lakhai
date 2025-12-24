@@ -12,5 +12,6 @@
     <string name="show_in_google">Show in google</string>
     <string name="choose_years">Choose years</string>
     <string name="clear">Clear</string>
+    <string name="you_can_swipe_to_delete_item">You can swipe to delete item</string>
 
 </resources>

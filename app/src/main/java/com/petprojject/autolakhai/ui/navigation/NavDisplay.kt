@@ -1,5 +1,6 @@
 package com.petprojject.autolakhai.ui.navigation
 
+import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -7,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
@@ -92,7 +94,7 @@ fun NavHost() {
 
                 is History -> NavEntry(key) {
                     val vm: HistoryViewModel = hiltViewModel()
-
+                    val context = LocalContext.current
                     val uiState by vm.uiState.collectAsState()
                     LaunchedEffect(Unit) {
                         vm.onAction(
@@ -106,6 +108,10 @@ fun NavHost() {
                                 is HistoryContract.SideEffect.NavigateToWebOpener -> backStack.add(
                                     WebOpener(it.url)
                                 )
+
+                                is HistoryContract.SideEffect.ShowToast -> {
+                                    Toast.makeText(context, it.text, 1000).show()
+                                }
                             }
                         }
                     }

@@ -2,8 +2,9 @@ package com.petprojject.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.petprojject.data.car.local.CarsHistoryDb
-import com.petprojject.data.car.local.HistoryCarsDao
+import com.petprojject.data.car.local.datastore.CarDataStore
+import com.petprojject.data.car.local.room.CarsHistoryDb
+import com.petprojject.data.car.local.room.HistoryCarsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,11 @@ object DatabaseModule {
         ).build()
 
     @Provides
+    fun provideCarDataStore(@ApplicationContext context: Context): CarDataStore =
+        CarDataStore(context)
+
+    @Provides
     fun provideCarDao(database: CarsHistoryDb): HistoryCarsDao =
         database.historyCarsDao()
+
 }

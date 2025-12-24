@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
+import com.petprojject.domain.base.AppResources
 import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.feature_automobile.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,11 +17,24 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     private val carRepository: CarRepository,
+    private val appResources: AppResources,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<HistoryContract.UiState, HistoryContract.UiAction, HistoryContract.SideEffect> by mvi(
         initialUiState()
     ) {
+
+    init {
+        viewModelScope.launch {
+            if (!carRepository.isInstructionsShowed()) {
+                viewModelScope.emitSideEffect(
+                    HistoryContract.SideEffect.ShowToast(appResources.getString(R.string.you_can_swipe_to_delete_item))
+                )
+                carRepository.setInstructionsShowedTrue()
+            }
+        }
+    }
+
     override fun onAction(uiAction: HistoryContract.UiAction) {
         when (uiAction) {
             HistoryContract.UiAction.Init -> {

@@ -30,4 +30,8 @@ interface CarRepository {
         model: String,
         year: String,
     ): String
+
+    suspend fun isInstructionsShowed(): Boolean
+    suspend fun setInstructionsShowedTrue()
+
 }

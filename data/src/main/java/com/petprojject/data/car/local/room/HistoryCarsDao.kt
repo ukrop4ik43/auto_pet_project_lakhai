@@ -1,4 +1,4 @@
-package com.petprojject.data.car.local
+package com.petprojject.data.car.local.room
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -1,7 +1,8 @@
 package com.petprojject.data.car.repository
 
 import com.petprojject.data.base.safeApiCall
-import com.petprojject.data.car.local.HistoryCarsDao
+import com.petprojject.data.car.local.datastore.CarDataStore
+import com.petprojject.data.car.local.room.HistoryCarsDao
 import com.petprojject.data.car.mapper.toDomain
 import com.petprojject.data.car.mapper.toEntity
 import com.petprojject.data.car.remote.CarApi
@@ -13,7 +14,8 @@ import com.petprojject.domain.car.repository.CarRepository
 
 class CarRepositoryImpl(
     private val apiService: CarApi,
-    private val historyCarsDao: HistoryCarsDao
+    private val historyCarsDao: HistoryCarsDao,
+    private val carDataStore: CarDataStore
 ) : CarRepository {
     override suspend fun getManufacturers(
         page: Int,
@@ -84,6 +86,14 @@ class CarRepositoryImpl(
         year: String
     ): String {
         return "$GOOGLE_BASE_URL_WITH_QUERY$manufacturer+$model+$year"
+    }
+
+    override suspend fun isInstructionsShowed(): Boolean {
+        return carDataStore.getIsInstructionsOpened()
+    }
+
+    override suspend fun setInstructionsShowedTrue() {
+        carDataStore.setInstructionsOpenedToTrue()
     }
 
     fun String.normalize() = this.trim().lowercase()

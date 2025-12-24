@@ -20,6 +20,7 @@ interface HistoryContract {
 
     sealed interface SideEffect {
         object GoBack : SideEffect
+        class ShowToast(val text: String) : SideEffect
         class NavigateToWebOpener(val url: String) : SideEffect
     }
 }
