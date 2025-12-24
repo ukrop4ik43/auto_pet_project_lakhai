@@ -1,6 +1,5 @@
 package com.petprojject.feature_automobile.screens.webview
 
-import android.util.Log
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -19,9 +18,6 @@ import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 fun WebOpenerScreen(
     state: WebOpenerContract.UiState
 ) {
-    LaunchedEffect(state) {
-        Log.d("asddsaa", state.url)
-    }
     AndroidView(
         modifier = Modifier
             .fillMaxSize()
