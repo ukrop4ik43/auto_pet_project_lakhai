@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
-    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -52,10 +52,10 @@ dependencies {
     implementation(libs.hilt.android)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation(libs.retrofit2.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation("androidx.datastore:datastore-preferences:1.2.0")
+    implementation(libs.androidx.datastore.preferences)
     ksp(libs.androidx.room.compiler)
 }
