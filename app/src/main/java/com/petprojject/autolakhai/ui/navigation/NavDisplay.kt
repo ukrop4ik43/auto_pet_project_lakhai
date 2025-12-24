@@ -13,6 +13,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.petprojject.core.base.CollectSideEffect
 import com.petprojject.core.navigation.routes.Screen
 import com.petprojject.core.navigation.routes.Screen.*
 import com.petprojject.feature_automobile.screens.history.HistoryContract
@@ -51,19 +52,17 @@ fun NavHost() {
 
                     val uiState by vm.uiState.collectAsState()
 
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
-                                StartContract.SideEffect.GoToChooseYourCar -> backStack.add(Screen.Manufacturers)
-                                StartContract.SideEffect.GoToHistory -> backStack.add(Screen.History)
-                            }
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                            StartContract.SideEffect.GoToChooseYourCar -> backStack.add(Screen.Manufacturers)
+                            StartContract.SideEffect.GoToHistory -> backStack.add(Screen.History)
                         }
-                    }
+                    })
+
 
                     StartScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
@@ -74,18 +73,16 @@ fun NavHost() {
                     LaunchedEffect(key) {
                         vm.onAction(WebOpenerContract.UiAction.Init(key.url))
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
-                                StartContract.SideEffect.GoToChooseYourCar -> backStack.add(
-                                    Manufacturers
-                                )
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                            StartContract.SideEffect.GoToChooseYourCar -> backStack.add(
+                                Manufacturers
+                            )
 
-                                StartContract.SideEffect.GoToHistory -> backStack.add(History)
-                            }
+                            StartContract.SideEffect.GoToHistory -> backStack.add(History)
                         }
-                    }
+                    })
 
                     WebOpenerScreen(
                         state = uiState
@@ -101,24 +98,21 @@ fun NavHost() {
                             HistoryContract.UiAction.Init
                         )
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                HistoryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
-                                is HistoryContract.SideEffect.NavigateToWebOpener -> backStack.add(
-                                    WebOpener(it.url)
-                                )
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            HistoryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                            is HistoryContract.SideEffect.NavigateToWebOpener -> backStack.add(
+                                WebOpener(it.url)
+                            )
 
-                                is HistoryContract.SideEffect.ShowToast -> {
-                                    Toast.makeText(context, it.text, 1000).show()
-                                }
+                            is HistoryContract.SideEffect.ShowToast -> {
+                                Toast.makeText(context, it.text, 1000).show()
                             }
                         }
-                    }
+                    })
 
                     HistoryScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
@@ -136,22 +130,20 @@ fun NavHost() {
                             )
                         )
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
-                                SummaryContract.SideEffect.GoToStart -> backStack.add(Start)
-                                is SummaryContract.SideEffect.GoToWebView -> backStack.add(
-                                    WebOpener(
-                                        it.url
-                                    )
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            SummaryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                            SummaryContract.SideEffect.GoToStart -> backStack.add(Start)
+                            is SummaryContract.SideEffect.GoToWebView -> backStack.add(
+                                WebOpener(
+                                    it.url
                                 )
-                            }
+                            )
                         }
-                    }
+                    })
+
                     SummaryScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
@@ -162,22 +154,21 @@ fun NavHost() {
                     LaunchedEffect(key) {
                         vm.onAction(ModelsContract.UiAction.Init(key.chosenManufacturer))
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                is ModelsContract.SideEffect.NavigateToYearsScreen -> {
-                                    backStack.add(
-                                        Years(it.manufacturer, it.model)
-                                    )
-                                }
 
-                                ModelsContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            is ModelsContract.SideEffect.NavigateToYearsScreen -> {
+                                backStack.add(
+                                    Years(it.manufacturer, it.model)
+                                )
                             }
+
+                            ModelsContract.SideEffect.GoBack -> backStack.removeLastOrNull()
                         }
-                    }
+                    })
+
                     ModelsScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
@@ -188,31 +179,29 @@ fun NavHost() {
                     LaunchedEffect(key) {
                         vm.onAction(
                             YearsContract.UiAction.Init(
-                                key.chosenManufacturer,
-                                key.chosenModel
+                                key.chosenManufacturer, key.chosenModel
                             )
                         )
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                is YearsContract.SideEffect.NavigateToResultScreen -> {
-                                    backStack.add(
-                                        Summary(
-                                            chosenManufacturer = it.manufacturer,
-                                            chosenModel = it.model,
-                                            chosenYear = it.year
-                                        )
-                                    )
-                                }
 
-                                YearsContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            is YearsContract.SideEffect.NavigateToResultScreen -> {
+                                backStack.add(
+                                    Summary(
+                                        chosenManufacturer = it.manufacturer,
+                                        chosenModel = it.model,
+                                        chosenYear = it.year
+                                    )
+                                )
                             }
+
+                            YearsContract.SideEffect.GoBack -> backStack.removeLastOrNull()
                         }
-                    }
+                    })
+
                     YearsScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
@@ -223,25 +212,23 @@ fun NavHost() {
                     LaunchedEffect(true) {
                         vm.onAction(ManufacturersContract.UiAction.Init)
                     }
-                    LaunchedEffect(vm.sideEffect) {
-                        vm.sideEffect.collect {
-                            when (it) {
-                                is ManufacturersContract.SideEffect.NavigateToModelsScreen -> backStack.add(
-                                    Models(it.manufacturer)
-                                )
 
-                                ManufacturersContract.SideEffect.NavigateBack -> backStack.removeLastOrNull()
-                            }
+                    CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                        when (it) {
+                            is ManufacturersContract.SideEffect.NavigateToModelsScreen -> backStack.add(
+                                Models(it.manufacturer)
+                            )
+
+                            ManufacturersContract.SideEffect.NavigateBack -> backStack.removeLastOrNull()
                         }
-                    }
+                    })
+
                     ManufacturersScreen(
-                        uiState = uiState,
-                        onAction = vm::onAction
+                        uiState = uiState, onAction = vm::onAction
                     )
                 }
 
                 else -> NavEntry(Unit) { Text("Unknown route") }
             }
-        }
-    )
+        })
 }
