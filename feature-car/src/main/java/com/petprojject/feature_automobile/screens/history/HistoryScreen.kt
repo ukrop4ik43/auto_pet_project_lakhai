@@ -89,6 +89,9 @@ fun HistoryScreen(
                                     .padding(start = 8.dp)
                                     .fillMaxWidth(),
                                 car = item,
+                                onItemClick = {
+                                    onAction(HistoryContract.UiAction.OnItemClick(item))
+                                },
                                 onItemDelete = {
                                     onAction(HistoryContract.UiAction.DeleteItem(item))
                                 }

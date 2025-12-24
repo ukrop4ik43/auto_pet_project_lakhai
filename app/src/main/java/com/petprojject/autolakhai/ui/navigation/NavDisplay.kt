@@ -103,6 +103,9 @@ fun NavHost() {
                         vm.sideEffect.collect {
                             when (it) {
                                 HistoryContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                                is HistoryContract.SideEffect.NavigateToWebOpener -> backStack.add(
+                                    WebOpener(it.url)
+                                )
                             }
                         }
                     }

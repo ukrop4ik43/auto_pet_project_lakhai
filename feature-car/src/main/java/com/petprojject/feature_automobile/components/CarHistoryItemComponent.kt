@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.petprojject.common_ui.R
+import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.domain.car.model.CarHistoryItem
@@ -28,6 +29,7 @@ import com.petprojject.domain.car.model.CarHistoryItem
 fun CarHistoryItemComponent(
     modifier: Modifier = Modifier,
     car: CarHistoryItem,
+    onItemClick: (CarHistoryItem) -> Unit,
     onItemDelete: (CarHistoryItem) -> Unit
 ) {
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
@@ -70,7 +72,10 @@ fun CarHistoryItemComponent(
                 .fillMaxWidth()
                 .background(CarTheme.customColors.backgroundColor)
                 .animateContentSize()
-                .padding(vertical = 4.dp),
+                .padding(vertical = 4.dp)
+                .clickableNoIndication{
+                    onItemClick(car)
+                },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -96,7 +101,7 @@ private fun CarHistoryItemComponentPreview() {
                 manufacturer = "AUDI",
                 model = "X5",
                 year = "2022"
-            ), onItemDelete = {}
+            ), onItemDelete = {}, onItemClick = {}
         )
     }
 }

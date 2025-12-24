@@ -47,6 +47,14 @@ class HistoryViewModel @Inject constructor(
                     getHistoryFromDb()
                 }
             }
+
+            is HistoryContract.UiAction.OnItemClick -> viewModelScope.emitSideEffect(
+                HistoryContract.SideEffect.NavigateToWebOpener(
+                    carRepository.generateGoogleUrl(
+                        uiAction.car
+                    )
+                )
+            )
         }
     }
 

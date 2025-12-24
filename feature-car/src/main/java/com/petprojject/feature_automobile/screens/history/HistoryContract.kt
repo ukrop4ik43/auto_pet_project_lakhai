@@ -15,9 +15,11 @@ interface HistoryContract {
         object OnBackClick : UiAction
         object TryAgain : UiAction
         object OnClearClick : UiAction
+        class OnItemClick(val car: CarHistoryItem) : UiAction
     }
 
     sealed interface SideEffect {
         object GoBack : SideEffect
+        class NavigateToWebOpener(val url: String) : SideEffect
     }
 }
