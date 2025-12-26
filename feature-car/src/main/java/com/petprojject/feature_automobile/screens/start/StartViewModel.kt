@@ -22,6 +22,10 @@ class StartViewModel @Inject constructor(
             StartContract.UiAction.OnHistoryClick -> viewModelScope.emitSideEffect(
                 StartContract.SideEffect.GoToHistory
             )
+
+            StartContract.UiAction.OnAiClick -> viewModelScope.emitSideEffect(
+                StartContract.SideEffect.GoToAi
+            )
         }
     }
 }

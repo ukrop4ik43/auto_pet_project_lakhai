@@ -1,4 +1,4 @@
-package com.test.feature_ai
+package com.petprojject.feature_ai
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

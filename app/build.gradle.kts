@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.petproject.autolakhai"
+    namespace = "com.petprojject.autolakhai"
     compileSdk {
         version = release(36)
     }
@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":feature-car"))
+    implementation(project(":feature-ai"))
     implementation(project(":core"))
     implementation(project(":common-ui"))
     implementation(libs.androidx.core.ktx)

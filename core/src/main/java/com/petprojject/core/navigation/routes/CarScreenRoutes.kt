@@ -3,33 +3,34 @@ package com.petprojject.core.navigation.routes
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed interface Screen : NavKey {
+@Serializable
+sealed interface CarScreenRoutes : NavKey {
     @Serializable
-    data object Manufacturers : Screen
+    data object Manufacturers : CarScreenRoutes
 
     @Serializable
-    data class Models(val chosenManufacturer: Pair<String, String>) : Screen
+    data class Models(val chosenManufacturer: Pair<String, String>) : CarScreenRoutes
 
     @Serializable
     data class Years(
         val chosenManufacturer: Pair<String, String>,
         val chosenModel: Pair<String, String>
-    ) : Screen
+    ) : CarScreenRoutes
 
     @Serializable
     data class Summary(
         val chosenManufacturer: Pair<String, String>,
         val chosenModel: Pair<String, String>,
         val chosenYear: Pair<String, String>
-    ) : Screen
+    ) : CarScreenRoutes
 
     @Serializable
-    data object Start : Screen
+    data object Start : CarScreenRoutes
 
     @Serializable
-    data object History : Screen
+    data object History : CarScreenRoutes
 
     @Serializable
-    data class WebOpener(val url:String) : Screen
+    data class WebOpener(val url: String) : CarScreenRoutes
 
 }

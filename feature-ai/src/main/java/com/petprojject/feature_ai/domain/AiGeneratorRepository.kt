@@ -1,4 +1,4 @@
-package com.test.feature_ai.domain
+package com.petprojject.feature_ai.domain
 
 interface AiGeneratorRepository {
    suspend fun getResponseFromAi(request: String): String

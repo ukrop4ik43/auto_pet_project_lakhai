@@ -1,4 +1,4 @@
-package com.test.feature_ai
+package com.petprojject.feature_ai
 
 import org.junit.Test
 

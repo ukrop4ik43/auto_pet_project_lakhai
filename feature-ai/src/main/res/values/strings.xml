@@ -1,0 +1,8 @@
+<resources>
+    <string name="ai_can_be_wrong">Be careful, as AI can generate wrong answers, hallucinate, etc.</string>
+    <string name="show_choice_alternatives">Show choice alternatives</string>
+    <string name="compare_choices">Compare choices</string>
+    <string name="generate_conclusion">Generate conclusion about user based on last choices</string>
+    <string name="powered_by">Powered by</string>
+
+</resources>

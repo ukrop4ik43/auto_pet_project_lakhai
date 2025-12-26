@@ -8,10 +8,12 @@ interface StartContract {
     sealed interface UiAction {
         object OnChooseYourCarClick : UiAction
         object OnHistoryClick : UiAction
+        object OnAiClick : UiAction
     }
 
     sealed interface SideEffect {
         object GoToHistory : SideEffect
         object GoToChooseYourCar : SideEffect
+        object GoToAi:SideEffect
     }
 }

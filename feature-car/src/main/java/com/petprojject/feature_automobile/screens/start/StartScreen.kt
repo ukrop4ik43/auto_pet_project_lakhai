@@ -56,6 +56,18 @@ fun StartScreen(
                 onAction(StartContract.UiAction.OnHistoryClick)
             }
         )
+
+        Spacer(Modifier.height(12.dp))
+        MainButton(
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .padding(vertical = 6.dp)
+                .fillMaxWidth(),
+            text = stringResource(R.string.ai),
+            onClick = {
+                onAction(StartContract.UiAction.OnAiClick)
+            }
+        )
     }
 }
 

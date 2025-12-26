@@ -1,7 +1,7 @@
-package com.test.feature_ai.di
+package com.petprojject.feature_ai.di
 
-import com.test.feature_ai.data.AiGeneratorRepositoryImpl
-import com.test.feature_ai.domain.AiGeneratorRepository
+import com.petprojject.feature_ai.data.AiGeneratorRepositoryImpl
+import com.petprojject.feature_ai.domain.AiGeneratorRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

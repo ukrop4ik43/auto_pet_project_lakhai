@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.test.feature_ai"
+    namespace = "com.petprojject.feature_ai"
     compileSdk {
         version = release(36)
     }
@@ -62,5 +62,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.ai)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
 }
