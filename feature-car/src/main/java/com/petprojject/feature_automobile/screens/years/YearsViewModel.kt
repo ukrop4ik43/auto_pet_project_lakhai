@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
-import com.petprojject.domain.base.RetrofitResult
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.core.base.retrofit.RetrofitResult
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher

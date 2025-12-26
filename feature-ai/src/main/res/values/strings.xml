@@ -4,5 +4,4 @@
     <string name="compare_choices">Compare choices</string>
     <string name="generate_conclusion">Generate conclusion about user based on last choices</string>
     <string name="powered_by">Powered by</string>
-
 </resources>

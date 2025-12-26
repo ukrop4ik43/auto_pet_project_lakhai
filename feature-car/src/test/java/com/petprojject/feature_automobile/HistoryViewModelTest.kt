@@ -1,7 +1,7 @@
 package com.petprojject.feature_automobile
 
-import com.petprojject.domain.car.model.CarHistoryItem
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.screens.history.HistoryContract
 import com.petprojject.feature_automobile.screens.history.HistoryViewModel
 import io.mockk.MockKAnnotations

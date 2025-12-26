@@ -6,7 +6,7 @@ import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.base.AppResources
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject

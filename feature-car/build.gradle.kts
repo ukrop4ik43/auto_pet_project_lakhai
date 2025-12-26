@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.secrets)
 }
 
 android {
@@ -37,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -62,4 +64,12 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    ksp(libs.androidx.room.compiler)
+
 }

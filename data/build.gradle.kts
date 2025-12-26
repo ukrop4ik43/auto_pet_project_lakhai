@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
     alias(libs.plugins.ksp)
-    alias(libs.plugins.secrets)
 }
 
 android {
@@ -53,7 +52,6 @@ dependencies {
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.logging.interceptor)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.datastore.preferences)

@@ -30,7 +30,7 @@ import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
-import com.petprojject.domain.car.model.CarHistoryItem
+import com.petprojject.feature_automobile.domain.model.CarHistoryItem
 import com.petprojject.feature_automobile.components.CarHistoryItemComponent
 
 @Composable

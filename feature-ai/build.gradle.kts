@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.hilt)
     id("com.google.gms.google-services")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.secrets)
 }
 
 android {

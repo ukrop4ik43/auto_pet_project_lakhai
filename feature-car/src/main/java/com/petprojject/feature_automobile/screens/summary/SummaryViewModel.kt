@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.domain.car.model.CarHistoryItem
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers

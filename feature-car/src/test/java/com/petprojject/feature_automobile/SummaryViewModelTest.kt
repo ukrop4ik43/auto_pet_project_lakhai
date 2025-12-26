@@ -1,7 +1,7 @@
 package com.petprojject.feature_automobile
 
 
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.screens.summary.SummaryContract
 import com.petprojject.feature_automobile.screens.summary.SummaryViewModel
 import io.mockk.MockKAnnotations

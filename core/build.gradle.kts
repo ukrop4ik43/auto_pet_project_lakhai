@@ -46,5 +46,6 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.hilt.android)
+    implementation(libs.retrofit2.retrofit)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
 }

@@ -1,8 +1,8 @@
 package com.petprojject.feature_automobile
 
-import com.petprojject.domain.base.RetrofitResult
-import com.petprojject.domain.car.model.ManufacturersData
-import com.petprojject.domain.car.repository.CarRepository
+import com.petprojject.core.base.retrofit.RetrofitResult
+import com.petprojject.feature_automobile.domain.model.ManufacturersData
+import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersContract
 import com.petprojject.feature_automobile.screens.manufacturers.ManufacturersViewModel
 import io.mockk.MockKAnnotations
