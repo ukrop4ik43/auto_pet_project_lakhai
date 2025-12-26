@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.domain.car.model.CarHistoryItem
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SummaryViewModel @Inject constructor(
-    private val carRepository: CarRepository
+    private val carRepository: CarRepository,
+    private val carHistoryRepository: CarHistoryRepository
 ) : ViewModel(),
     MVI<SummaryContract.UiState, SummaryContract.UiAction, SummaryContract.SideEffect> by mvi(
         initialUiState()
@@ -37,7 +39,7 @@ class SummaryViewModel @Inject constructor(
 
             SummaryContract.UiAction.OnFinishClick -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    carRepository.saveCarToHistory(
+                    carHistoryRepository.saveCarToHistory(
                         CarHistoryItem(
                             id = null,
                             manufacturer = uiState.value.manufacturer.second,

@@ -23,7 +23,7 @@ import com.petprojject.common_ui.R
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
-import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.domain.car.model.CarHistoryItem
 
 @Composable
 fun CarHistoryItemComponent(

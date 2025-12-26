@@ -1,4 +1,4 @@
-package com.petprojject.feature_automobile.data.model
+package com.petprojject.data.car.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

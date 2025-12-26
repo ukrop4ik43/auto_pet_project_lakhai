@@ -1,6 +1,6 @@
 package com.petprojject.feature_automobile.screens.history
 
-import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.domain.car.model.CarHistoryItem
 
 interface HistoryContract {
     data class UiState(

@@ -9,4 +9,7 @@ import kotlinx.serialization.Serializable
 sealed interface AiScreenRoutes : NavKey {
     @Serializable
     data object Menu : AiScreenRoutes
+
+    @Serializable
+    data object Conclusion : AiScreenRoutes
 }

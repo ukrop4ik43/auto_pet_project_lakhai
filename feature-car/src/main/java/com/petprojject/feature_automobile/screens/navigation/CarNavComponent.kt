@@ -118,7 +118,7 @@ fun CarNavComponent(onAiSectionClick: () -> Unit) {
                         )
 
                         is HistoryContract.SideEffect.ShowToast -> {
-                            Toast.makeText(context, it.text, 1000).show()
+                            Toast.makeText(context, it.text, Toast.LENGTH_SHORT).show()
                         }
                     }
                 })

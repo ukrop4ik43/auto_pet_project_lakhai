@@ -3,9 +3,12 @@ package com.petprojject.feature_ai.data
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_ai.domain.AiGeneratorRepository
 
-class AiGeneratorRepositoryImpl : AiGeneratorRepository {
+class AiGeneratorRepositoryImpl(
+    private val carHistoryRepository: CarHistoryRepository
+) : AiGeneratorRepository {
     val model = Firebase.ai(backend = GenerativeBackend.googleAI())
         .generativeModel("gemini-2.5-flash")
 

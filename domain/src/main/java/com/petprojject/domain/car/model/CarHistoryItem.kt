@@ -1,4 +1,4 @@
-package com.petprojject.feature_automobile.domain.model
+package com.petprojject.domain.car.model
 
 data class CarHistoryItem(
     val id: Long?,

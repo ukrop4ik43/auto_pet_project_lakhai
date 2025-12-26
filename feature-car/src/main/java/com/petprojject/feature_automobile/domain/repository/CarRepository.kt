@@ -1,7 +1,7 @@
 package com.petprojject.feature_automobile.domain.repository
 
 import com.petprojject.core.base.retrofit.RetrofitResult
-import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.domain.car.model.CarHistoryItem
 import com.petprojject.feature_automobile.domain.model.ManufacturersData
 
 interface CarRepository {
@@ -18,10 +18,7 @@ interface CarRepository {
     ): RetrofitResult<Map<String, String>>
 
     fun filterModels(map: Map<String, String>, search: String): Map<String, String>
-    suspend fun saveCarToHistory(carHistoryItem: CarHistoryItem)
-    suspend fun getAllCarsHistory(): List<CarHistoryItem>
-    suspend fun deleteCarFromHistory(car: CarHistoryItem)
-    suspend fun deleteAllCarsFromHistory()
+
     fun generateGoogleUrl(car: CarHistoryItem): String
     fun generateGoogleUrl(
         manufacturer: String,

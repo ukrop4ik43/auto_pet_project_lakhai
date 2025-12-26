@@ -10,12 +10,15 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.petprojject.core.base.CollectSideEffect
 import com.petprojject.core.navigation.routes.AiScreenRoutes
+import com.petprojject.feature_ai.screens.conclusion.ConclusionContract
+import com.petprojject.feature_ai.screens.conclusion.ConclusionScreen
+import com.petprojject.feature_ai.screens.conclusion.ConclusionViewModel
 import com.petprojject.feature_ai.screens.menu.AiMenuContract
 import com.petprojject.feature_ai.screens.menu.AiMenuScreen
 import com.petprojject.feature_ai.screens.menu.AiMenuViewModel
 
 @Composable
-fun AiNavComponent(onBackToCar:()->Unit) {
+fun AiNavComponent(onBackToCar: () -> Unit) {
     val backStack = remember { mutableStateListOf<AiScreenRoutes>(AiScreenRoutes.Menu) }
     NavDisplay(
         backStack = backStack,
@@ -31,6 +34,7 @@ fun AiNavComponent(onBackToCar:()->Unit) {
                         AiMenuContract.SideEffect.GoBack -> {
                             onBackToCar()
                         }
+
                         AiMenuContract.SideEffect.GoToChoiceAlternativesScreen -> {
                             //TODO
                         }
@@ -46,6 +50,22 @@ fun AiNavComponent(onBackToCar:()->Unit) {
                 })
 
                 AiMenuScreen(
+                    uiState = uiState, onAction = vm::onAction
+                )
+            }
+
+            entry<AiScreenRoutes.Conclusion> {
+                val vm: ConclusionViewModel = hiltViewModel()
+
+                val uiState by vm.uiState.collectAsState()
+
+                CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                    when (it) {
+                        ConclusionContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                    }
+                })
+
+                ConclusionScreen(
                     uiState = uiState, onAction = vm::onAction
                 )
             }

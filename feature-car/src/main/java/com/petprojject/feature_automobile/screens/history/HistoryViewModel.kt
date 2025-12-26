@@ -6,6 +6,7 @@ import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
 import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.base.AppResources
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     private val carRepository: CarRepository,
+    private val carHistoryRepository: CarHistoryRepository,
     private val appResources: AppResources,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
@@ -51,14 +53,14 @@ class HistoryViewModel @Inject constructor(
 
             is HistoryContract.UiAction.DeleteItem -> {
                 viewModelScope.launch(ioDispatcher) {
-                    carRepository.deleteCarFromHistory(uiAction.car)
+                    carHistoryRepository.deleteCarFromHistory(uiAction.car)
                     getHistoryFromDb()
                 }
             }
 
             HistoryContract.UiAction.OnClearClick -> {
                 viewModelScope.launch(ioDispatcher) {
-                    carRepository.deleteAllCarsFromHistory()
+                    carHistoryRepository.deleteAllCarsFromHistory()
                     getHistoryFromDb()
                 }
             }
@@ -76,7 +78,7 @@ class HistoryViewModel @Inject constructor(
     private fun getHistoryFromDb() {
         viewModelScope.launch(ioDispatcher) {
             updateUiState { copy(isLoading = true) }
-            val newList = carRepository.getAllCarsHistory()
+            val newList = carHistoryRepository.getAllCarsHistory()
             updateUiState { copy(listOfHistory = newList, isLoading = false) }
         }
     }

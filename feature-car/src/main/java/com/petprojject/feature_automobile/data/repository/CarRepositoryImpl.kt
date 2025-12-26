@@ -3,19 +3,14 @@ package com.petprojject.feature_automobile.data.repository
 import com.petprojject.core.base.retrofit.RetrofitResult
 import com.petprojject.core.base.retrofit.safeApiCall
 import com.petprojject.feature_automobile.data.local.datastore.CarDataStore
-import com.petprojject.feature_automobile.data.local.room.HistoryCarsDao
-import com.petprojject.feature_automobile.data.mapper.toDomain
-import com.petprojject.feature_automobile.data.mapper.toEntity
 import com.petprojject.feature_automobile.data.remote.CarApi
-import com.petprojject.feature_automobile.domain.model.CarHistoryItem
+import com.petprojject.domain.car.model.CarHistoryItem
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_automobile.domain.model.ManufacturersData
 import com.petprojject.feature_automobile.domain.repository.CarRepository
-import kotlin.collections.map
-
 
 class CarRepositoryImpl(
     private val apiService: CarApi,
-    private val historyCarsDao: HistoryCarsDao,
     private val carDataStore: CarDataStore
 ) : CarRepository {
     override suspend fun getManufacturers(
@@ -56,24 +51,6 @@ class CarRepositoryImpl(
         return map.filter { (_, value) ->
             value.normalize().contains(s)
         }
-    }
-
-    override suspend fun saveCarToHistory(
-        carHistoryItem: CarHistoryItem
-    ) {
-        historyCarsDao.insertCarToHistory(carHistoryItem.toEntity())
-    }
-
-    override suspend fun getAllCarsHistory(): List<CarHistoryItem> {
-        return historyCarsDao.getAllHistory().map { it.toDomain() }
-    }
-
-    override suspend fun deleteCarFromHistory(car: CarHistoryItem) {
-        historyCarsDao.deleteCar(car = car.toEntity())
-    }
-
-    override suspend fun deleteAllCarsFromHistory() {
-        historyCarsDao.deleteAllHistory()
     }
 
     override fun generateGoogleUrl(car: CarHistoryItem): String {

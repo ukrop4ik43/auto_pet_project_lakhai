@@ -1,8 +1,8 @@
-package com.petprojject.feature_automobile.data.local.room
+package com.petprojject.data.car.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.petprojject.feature_automobile.data.model.CarHistoryItemEntity
+import com.petprojject.data.car.model.CarHistoryItemEntity
 
 @Database(entities = [CarHistoryItemEntity::class], version = 1)
 abstract class CarsHistoryDb : RoomDatabase() {

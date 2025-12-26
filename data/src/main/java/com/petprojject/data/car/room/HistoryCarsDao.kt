@@ -1,10 +1,10 @@
-package com.petprojject.feature_automobile.data.local.room
+package com.petprojject.data.car.room
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.petprojject.feature_automobile.data.model.CarHistoryItemEntity
+import com.petprojject.data.car.model.CarHistoryItemEntity
 
 @Dao
 interface HistoryCarsDao {
