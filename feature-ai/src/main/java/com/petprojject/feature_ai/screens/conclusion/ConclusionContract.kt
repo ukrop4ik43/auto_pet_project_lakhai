@@ -8,6 +8,7 @@ interface ConclusionContract {
 
     sealed interface UiAction {
         object OnBackClick : UiAction
+        object Init : UiAction
     }
 
     sealed interface SideEffect {

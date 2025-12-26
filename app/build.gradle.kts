@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.secrets)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -70,6 +71,8 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.hilt.android)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ai)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation(libs.androidx.hilt.navigation.compose)
 }

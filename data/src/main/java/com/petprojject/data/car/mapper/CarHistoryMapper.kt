@@ -1,6 +1,6 @@
 package com.petprojject.data.car.mapper
 
-import com.petprojject.feature_automobile.data.model.CarHistoryItemEntity
+import com.petprojject.data.car.model.CarHistoryItemEntity
 import com.petprojject.domain.car.model.CarHistoryItem
 
 fun CarHistoryItem.toEntity(): CarHistoryItemEntity =

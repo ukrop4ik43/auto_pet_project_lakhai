@@ -1,5 +1,6 @@
 package com.petprojject.feature_ai.di
 
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_ai.data.AiGeneratorRepositoryImpl
 import com.petprojject.feature_ai.domain.AiGeneratorRepository
 import dagger.Module
@@ -12,5 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object AiModule {
     @Provides
-    fun provideAiGeneratorRepository(): AiGeneratorRepository = AiGeneratorRepositoryImpl()
+    fun provideAiGeneratorRepository(carHistoryRepository: CarHistoryRepository): AiGeneratorRepository =
+        AiGeneratorRepositoryImpl(carHistoryRepository)
 }

@@ -2,6 +2,7 @@ package com.petprojject.feature_ai.screens.conclusion
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,12 +37,10 @@ import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_ai.R
 import com.petprojject.common_ui.R as commonUiR
-import com.petprojject.feature_ai.screens.menu.AiMenuContract
 
 @Composable
 fun ConclusionScreen(
-    uiState: ConclusionContract.UiState,
-    onAction: (ConclusionContract.UiAction) -> Unit
+    uiState: ConclusionContract.UiState, onAction: (ConclusionContract.UiAction) -> Unit
 ) {
     Column(
         Modifier
@@ -55,8 +56,7 @@ fun ConclusionScreen(
                 .padding(vertical = 8.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .align(Alignment.Center),
+                modifier = Modifier.align(Alignment.Center),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -84,12 +84,29 @@ fun ConclusionScreen(
         }
         Column(
             modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .background(CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
+                .border(2.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
                 .weight(1f)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("jzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafsjzfhfvlsffoafs")
+            if (uiState.isLoading) {
+                CircularProgressIndicator()
+            } else {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                        .padding(vertical = 12.dp),
+                    text = uiState.response,
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp,
+                    color = CarTheme.customColors.descriptionColor
+                )
+            }
         }
         Text(
             modifier = Modifier

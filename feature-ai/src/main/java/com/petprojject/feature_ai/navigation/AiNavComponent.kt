@@ -1,6 +1,7 @@
 package com.petprojject.feature_ai.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -44,7 +45,7 @@ fun AiNavComponent(onBackToCar: () -> Unit) {
                         }
 
                         AiMenuContract.SideEffect.GoToGenerateConclusionClick -> {
-                            //TODO
+                            backStack.add(AiScreenRoutes.Conclusion)
                         }
                     }
                 })
@@ -58,7 +59,9 @@ fun AiNavComponent(onBackToCar: () -> Unit) {
                 val vm: ConclusionViewModel = hiltViewModel()
 
                 val uiState by vm.uiState.collectAsState()
-
+                LaunchedEffect(Unit) {
+                    vm.onAction(ConclusionContract.UiAction.Init)
+                }
                 CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
                     when (it) {
                         ConclusionContract.SideEffect.GoBack -> backStack.removeLastOrNull()
