@@ -32,7 +32,6 @@ class AiGeneratorRepositoryImpl(
     }
 
     companion object {
-
         const val MINIMAL_AMOUNT_OF_HISTORY_ITEMS = 5
     }
 }

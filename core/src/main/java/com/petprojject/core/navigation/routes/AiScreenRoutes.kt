@@ -12,4 +12,7 @@ sealed interface AiScreenRoutes : NavKey {
 
     @Serializable
     data object Conclusion : AiScreenRoutes
+
+    @Serializable
+    data object Compare : AiScreenRoutes
 }
