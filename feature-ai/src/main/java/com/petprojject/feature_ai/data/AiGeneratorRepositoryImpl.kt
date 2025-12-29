@@ -46,6 +46,15 @@ class AiGeneratorRepositoryImpl(
         return response
     }
 
+    override suspend fun getCarAlternatives(car: CarHistoryItem): String {
+        val prompt =
+            "I'm user.Give me alternative for car ${car.manufacturer + " " + car.model + "(" + car.year + ")"} " +
+                    "Answer must be ready to show on android device, " +
+                    "that means that you should not use **, this answer will be used directly in UI."
+        val response = model.generateContent(prompt).text ?: ""
+        return response
+    }
+
     companion object {
         const val MINIMAL_AMOUNT_OF_HISTORY_ITEMS = 5
     }

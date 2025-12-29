@@ -11,6 +11,9 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.petprojject.core.base.CollectSideEffect
 import com.petprojject.core.navigation.routes.AiScreenRoutes
+import com.petprojject.feature_ai.screens.alternatives.AlternativesContract
+import com.petprojject.feature_ai.screens.alternatives.AlternativesScreen
+import com.petprojject.feature_ai.screens.alternatives.AlternativesViewModel
 import com.petprojject.feature_ai.screens.compare.CompareContract
 import com.petprojject.feature_ai.screens.compare.CompareScreen
 import com.petprojject.feature_ai.screens.compare.CompareViewModel
@@ -40,7 +43,7 @@ fun AiNavComponent(onBackToCar: () -> Unit) {
                         }
 
                         AiMenuContract.SideEffect.GoToChoiceAlternativesScreen -> {
-                            //TODO
+                            backStack.add(AiScreenRoutes.Alternatives)
                         }
 
                         AiMenuContract.SideEffect.GoToCompareChoicesClick -> {
@@ -90,6 +93,24 @@ fun AiNavComponent(onBackToCar: () -> Unit) {
                 })
 
                 CompareScreen(
+                    uiState = uiState, onAction = vm::onAction
+                )
+            }
+
+            entry<AiScreenRoutes.Alternatives> {
+                val vm: AlternativesViewModel = hiltViewModel()
+
+                val uiState by vm.uiState.collectAsState()
+                LaunchedEffect(Unit) {
+                    vm.onAction(AlternativesContract.UiAction.Init)
+                }
+                CollectSideEffect(sideEffect = vm.sideEffect, onSideEffect = {
+                    when (it) {
+                        AlternativesContract.SideEffect.GoBack -> backStack.removeLastOrNull()
+                    }
+                })
+
+                AlternativesScreen(
                     uiState = uiState, onAction = vm::onAction
                 )
             }

@@ -1,4 +1,4 @@
-package com.petprojject.feature_ai.screens.compare
+package com.petprojject.feature_ai.screens.alternatives
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,12 +40,12 @@ import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_ai.R
-import com.petprojject.feature_ai.components.CarChooseItemComponent
 import com.petprojject.common_ui.R as commonUiR
+import com.petprojject.feature_ai.components.CarChooseItemComponent
 
 @Composable
-fun CompareScreen(
-    uiState: CompareContract.UiState, onAction: (CompareContract.UiAction) -> Unit
+fun AlternativesScreen(
+    uiState: AlternativesContract.UiState, onAction: (AlternativesContract.UiAction) -> Unit
 ) {
     Scaffold(
         Modifier
@@ -56,29 +57,19 @@ fun CompareScreen(
                     .padding(vertical = 8.dp)
                     .statusBarsPadding(),
             ) {
-                Column(
+                Row(
                     modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(R.string.powered_by) + " ",
-                            style = TextStyle(fontSize = 12.sp),
-                            color = CarTheme.customColors.textColor
-                        )
-                        Image(
-                            painter = painterResource(R.drawable.gemini),
-                            modifier = Modifier.height(12.dp),
-                            contentDescription = null
-                        )
-                    }
                     Text(
-                        text = stringResource(R.string.choose_two_items) + " ",
-                        style = TextStyle(fontSize = 12.sp),
+                        text = stringResource(R.string.powered_by) + " ",
+                        style = TextStyle(fontSize = 24.sp),
                         color = CarTheme.customColors.textColor
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.gemini),
+                        modifier = Modifier.height(12.dp),
+                        contentDescription = null
                     )
                 }
                 Icon(
@@ -86,7 +77,7 @@ fun CompareScreen(
                         .size(36.dp)
                         .align(Alignment.CenterStart)
                         .clickableNoIndication {
-                            onAction(CompareContract.UiAction.OnBackClick)
+                            onAction(AlternativesContract.UiAction.OnBackClick)
                         },
                     painter = painterResource(commonUiR.drawable.arrow_back),
                     tint = CarTheme.customColors.iconColor,
@@ -101,23 +92,23 @@ fun CompareScreen(
             error = uiState.error,
             paddingValues = padding,
             onTryAgain = {
-                onAction(CompareContract.UiAction.TryAgain)
+                onAction(AlternativesContract.UiAction.TryAgain)
             },
             content = {
-                if (uiState.listOfIndexesChosenItems.size != 2) {
+                if (uiState.response.isEmpty()) {
                     LazyColumn(
                         modifier = Modifier.padding(padding),
                     ) {
-                        itemsIndexed(uiState.listOfHistory.toList()) { index, item ->
+                        items(uiState.listOfHistory.toList()) { item ->
                             CarChooseItemComponent(
                                 modifier = Modifier
                                     .padding(start = 8.dp)
                                     .fillMaxWidth(),
                                 car = item,
                                 onItemClick = {
-                                    onAction(CompareContract.UiAction.OnItemClick(index))
+                                    onAction(AlternativesContract.UiAction.OnItemClick(item))
                                 },
-                                isChosen = uiState.listOfIndexesChosenItems.contains(index)
+                                isChosen = false
                             )
                             HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
                         }
@@ -182,8 +173,8 @@ fun CompareScreen(
 
 @Composable
 @Preview
-private fun CompareScreenPreview() {
+private fun AlternativesScreenPreview() {
     AutoPetProjectLakhaiTheme {
-        CompareScreen(onAction = {}, uiState = CompareContract.UiState())
+        AlternativesScreen(onAction = {}, uiState = AlternativesContract.UiState())
     }
 }
