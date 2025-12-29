@@ -3,6 +3,7 @@ package com.petprojject.feature_ai.data
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
+import com.petprojject.domain.car.model.CarHistoryItem
 import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_ai.domain.AiGeneratorRepository
 
@@ -23,12 +24,26 @@ class AiGeneratorRepositoryImpl(
             historyInString.append(it.manufacturer + " " + it.model + " " + it.year)
         }
         val prompt =
-            "I'm user.Generate conclusion about me based on my latest search in cars: $historyInString. Answer must be ready to show on android device, that means that you should not use **"
+            "I'm user.Generate conclusion about me based on my latest search in cars: $historyInString." +
+                    " Answer must be ready to show on android device, that means " +
+                    "that you should not use **,this answer will be used directly in UI."
         return if (history.size >= MINIMAL_AMOUNT_OF_HISTORY_ITEMS) {
             model.generateContent(prompt).text ?: ""
         } else {
             "You need at least $MINIMAL_AMOUNT_OF_HISTORY_ITEMS items in history"
         }
+    }
+
+    override suspend fun compareCars(
+        firstCar: CarHistoryItem,
+        secondCar: CarHistoryItem
+    ): String {
+        val prompt =
+            "I'm user.Compare 2 cars ${firstCar.manufacturer + " " + firstCar.model + "(" + firstCar.year + ")"} " +
+                    "and ${secondCar.manufacturer + " " + secondCar.model + "(" + secondCar.year + ")"}. " +
+                    "Answer must be ready to show on android device, that means that you should not use **, this answer will be used directly in UI."
+        val response = model.generateContent(prompt).text ?: ""
+        return response
     }
 
     companion object {

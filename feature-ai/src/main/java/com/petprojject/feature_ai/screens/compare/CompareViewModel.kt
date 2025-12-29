@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 class CompareViewModel @Inject constructor(
     private val aiGeneratorRepository: AiGeneratorRepository,
     private val carHistoryRepository: CarHistoryRepository,
-    @IoDispatcher
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<CompareContract.UiState, CompareContract.UiAction, CompareContract.SideEffect> by mvi(
         initialUiState()
@@ -30,6 +29,14 @@ class CompareViewModel @Inject constructor(
             )
 
             CompareContract.UiAction.Init -> {
+                updateUiState {
+                    copy(
+                        isLoading = true,
+                        listOfIndexesChosenItems = emptyList(),
+                        listOfHistory = emptyList(),
+                        response = ""
+                    )
+                }
                 getHistoryFromDb()
             }
 
@@ -41,14 +48,35 @@ class CompareViewModel @Inject constructor(
                 } else {
                     mutableStateFromTheIndexes.add(element = uiAction.index)
                 }
-
+                if (mutableStateFromTheIndexes.size == NUMBER_OF_CARS_TO_COMPARE) {
+                    updateUiState { copy(isLoading = true) }
+                    viewModelScope.launch(ioDispatcher) {
+                        val comparison = aiGeneratorRepository.compareCars(
+                            uiState.value.listOfHistory[uiState.value.listOfIndexesChosenItems[0]],
+                            uiState.value.listOfHistory[uiState.value.listOfIndexesChosenItems[1]]
+                        )
+                        updateUiState {
+                            copy(
+                                response = comparison, isLoading = false
+                            )
+                        }
+                    }
+                }
                 updateUiState {
                     copy(listOfIndexesChosenItems = mutableStateFromTheIndexes.toList())
                 }
             }
 
             CompareContract.UiAction.TryAgain -> {
-                //TODO
+                updateUiState {
+                    copy(
+                        isLoading = true,
+                        listOfIndexesChosenItems = emptyList(),
+                        listOfHistory = emptyList(),
+                        response = ""
+                    )
+                }
+                getHistoryFromDb()
             }
         }
     }
@@ -60,7 +88,12 @@ class CompareViewModel @Inject constructor(
             updateUiState { copy(listOfHistory = newList, isLoading = false) }
         }
     }
+
+    companion object {
+        private const val NUMBER_OF_CARS_TO_COMPARE = 2
+    }
 }
 
 private fun initialUiState() = CompareContract.UiState(
 )
+

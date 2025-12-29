@@ -44,7 +44,7 @@ fun AiNavComponent(onBackToCar: () -> Unit) {
                         }
 
                         AiMenuContract.SideEffect.GoToCompareChoicesClick -> {
-                            //TODO
+                            backStack.add(AiScreenRoutes.Compare)
                         }
 
                         AiMenuContract.SideEffect.GoToGenerateConclusionClick -> {

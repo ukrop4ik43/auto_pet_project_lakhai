@@ -1,6 +1,8 @@
 package com.petprojject.feature_ai.screens.compare
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +17,10 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -25,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +57,8 @@ fun CompareScreen(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 8.dp)
+                    .statusBarsPadding(),
             ) {
                 Column(
                     modifier = Modifier.align(Alignment.Center),
@@ -113,15 +121,64 @@ fun CompareScreen(
                                 onItemClick = {
                                     onAction(CompareContract.UiAction.OnItemClick(index))
                                 },
+                                isChosen = uiState.listOfIndexesChosenItems.contains(index)
                             )
                             HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
-
                         }
                         item {
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                     }
                 } else {
+                    Column(
+                        Modifier
+                            .padding(padding)
+                            .fillMaxSize()
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .padding(8.dp)
+                                .background(
+                                    CarTheme.customColors.cardBorderColor,
+                                    RoundedCornerShape(4.dp)
+                                )
+                                .border(
+                                    2.dp,
+                                    CarTheme.customColors.cardBorderColor,
+                                    RoundedCornerShape(4.dp)
+                                )
+                                .verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            if (uiState.isLoading) {
+                                CircularProgressIndicator()
+                            } else {
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 8.dp)
+                                        .padding(vertical = 12.dp),
+                                    text = uiState.response,
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 20.sp,
+                                    color = CarTheme.customColors.descriptionColor
+                                )
+                            }
+                        }
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                                .padding(vertical = 12.dp),
+                            text = stringResource(R.string.ai_can_be_wrong),
+                            textAlign = TextAlign.Center,
+                            fontSize = 16.sp,
+                            color = CarTheme.customColors.descriptionColor
+                        )
+                    }
 
                 }
             })

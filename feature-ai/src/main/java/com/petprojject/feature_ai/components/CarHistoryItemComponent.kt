@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -42,18 +46,23 @@ fun CarChooseItemComponent(
             .padding(vertical = 4.dp)
             .clickableNoIndication {
                 onItemClick(car)
-            },
-        verticalAlignment = Alignment.CenterVertically
+            }, verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = car.manufacturer + " " + car.model + " ",
-            color = CarTheme.customColors.textColor
+            text = car.manufacturer + " " + car.model + " ", color = CarTheme.customColors.textColor
         )
         Text(
-            text = "(" + car.year + ")",
-            color = CarTheme.customColors.descriptionColor
+            text = "(" + car.year + ")", color = CarTheme.customColors.descriptionColor
         )
         Spacer(Modifier.weight(1f))
+        if (isChosen) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                tint = CarTheme.customColors.iconColor,
+                contentDescription = null
+            )
+        }
+        Spacer(Modifier.width(8.dp))
     }
 }
 
@@ -62,23 +71,15 @@ fun CarChooseItemComponent(
 private fun CarChooseItemComponentPreview() {
     AutoPetProjectLakhaiTheme {
         CarChooseItemComponent(
-            modifier = Modifier.fillMaxWidth(),
-            car = CarHistoryItem(
-                id = 0,
-                manufacturer = "AUDI",
-                model = "X5",
-                year = "2022"
+            modifier = Modifier.fillMaxWidth(), car = CarHistoryItem(
+                id = 0, manufacturer = "AUDI", model = "X5", year = "2022"
             ), onItemClick = {}, isChosen = false
         )
 
         Spacer(Modifier.height(20.dp))
         CarChooseItemComponent(
-            modifier = Modifier.fillMaxWidth(),
-            car = CarHistoryItem(
-                id = 0,
-                manufacturer = "AUDI",
-                model = "X5",
-                year = "2022"
+            modifier = Modifier.fillMaxWidth(), car = CarHistoryItem(
+                id = 0, manufacturer = "AUDI", model = "X5", year = "2022"
             ), onItemClick = {}, isChosen = true
         )
     }
