@@ -65,4 +65,5 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
+    implementation(libs.haze)
 }

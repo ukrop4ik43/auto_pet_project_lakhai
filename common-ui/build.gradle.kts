@@ -56,4 +56,5 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     implementation(libs.hilt.android)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
+    implementation(libs.haze)
 }

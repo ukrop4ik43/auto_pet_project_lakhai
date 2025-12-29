@@ -26,11 +26,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_ai.R
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import com.petprojject.common_ui.R as commonUiR
 
 @Composable
@@ -38,91 +41,98 @@ fun AiMenuScreen(
     uiState: AiMenuContract.UiState,
     onAction: (AiMenuContract.UiAction) -> Unit,
 ) {
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(CarTheme.customColors.backgroundColor)
-            .navigationBarsPadding()
-            .systemBarsPadding(), contentAlignment = Alignment.Center
-    ) {
+    val hazeState = rememberHazeState(true)
+    BackgroundImage(hazeState = hazeState) {
         Box(
             Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .fillMaxSize()
+                .navigationBarsPadding()
+                .systemBarsPadding(), contentAlignment = Alignment.Center
         ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.Center),
-                verticalAlignment = Alignment.CenterVertically
+            Box(
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
             ) {
-                Text(
-                    text = stringResource(R.string.powered_by) + " ",
-                    style = TextStyle(fontSize = 24.sp),
-                    color = CarTheme.customColors.textColor
-                )
-                Image(
-                    painter = painterResource(R.drawable.gemini),
-                    modifier = Modifier.height(24.dp),
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.Center),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.powered_by) + " ",
+                        style = TextStyle(fontSize = 24.sp),
+                        color = CarTheme.customColors.textColor
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.gemini),
+                        modifier = Modifier.height(24.dp),
+                        contentDescription = null
+                    )
+                }
+                Icon(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .align(Alignment.CenterStart)
+                        .clickableNoIndication {
+                            onAction(AiMenuContract.UiAction.OnBackClick)
+                        },
+                    painter = painterResource(commonUiR.drawable.arrow_back),
+                    tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
             }
-            Icon(
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                MainButton(
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .padding(vertical = 6.dp)
+                        .fillMaxWidth(),
+                    text = stringResource(R.string.show_choice_alternatives),
+                    onClick = {
+                        onAction(AiMenuContract.UiAction.OnShowChoiceAlternativesScreen)
+                    }, hazeState = hazeState
+                )
+                Spacer(Modifier.height(4.dp))
+                MainButton(
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .padding(vertical = 6.dp)
+                        .fillMaxWidth(),
+                    text = stringResource(R.string.generate_conclusion),
+                    onClick = {
+                        onAction(AiMenuContract.UiAction.OnGenerateConclusionClick)
+                    }, hazeState = hazeState
+                )
+                Spacer(Modifier.height(4.dp))
+                MainButton(
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .padding(vertical = 6.dp)
+                        .fillMaxWidth(),
+                    text = stringResource(R.string.compare_choices),
+                    onClick = {
+                        onAction(AiMenuContract.UiAction.OnCompareChoicesClick)
+                    }, hazeState = hazeState
+                )
+            }
+            Text(
                 modifier = Modifier
-                    .size(36.dp)
-                    .align(Alignment.CenterStart)
-                    .clickableNoIndication {
-                        onAction(AiMenuContract.UiAction.OnBackClick)
-                    },
-                painter = painterResource(commonUiR.drawable.arrow_back),
-                tint = CarTheme.customColors.iconColor,
-                contentDescription = null
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(horizontal = 8.dp)
+                    .padding(vertical = 12.dp),
+                text = stringResource(R.string.ai_can_be_wrong),
+                textAlign = TextAlign.Center,
+                fontSize = 16.sp,
+                color = CarTheme.customColors.descriptionColor
             )
         }
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            MainButton(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .padding(vertical = 6.dp)
-                    .fillMaxWidth(),
-                text = stringResource(R.string.show_choice_alternatives),
-                onClick = {
-                    onAction(AiMenuContract.UiAction.OnShowChoiceAlternativesScreen)
-                })
-            Spacer(Modifier.height(12.dp))
-            MainButton(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .padding(vertical = 6.dp)
-                    .fillMaxWidth(),
-                text = stringResource(R.string.generate_conclusion),
-                onClick = {
-                    onAction(AiMenuContract.UiAction.OnGenerateConclusionClick)
-                })
-            Spacer(Modifier.height(12.dp))
-            MainButton(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .padding(vertical = 6.dp)
-                    .fillMaxWidth(), text = stringResource(R.string.compare_choices), onClick = {
-                    onAction(AiMenuContract.UiAction.OnCompareChoicesClick)
-                })
-        }
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 8.dp)
-                .padding(vertical = 12.dp),
-            text = stringResource(R.string.ai_can_be_wrong),
-            textAlign = TextAlign.Center,
-            fontSize = 16.sp,
-            color = CarTheme.customColors.descriptionColor
-        )
     }
 }
 

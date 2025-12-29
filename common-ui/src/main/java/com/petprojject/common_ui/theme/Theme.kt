@@ -48,7 +48,7 @@ val LightCustomColors = AppCustomColors(
     cardBorderColor = Color(0xFF888888),
     resultCardBackground = Color(0xFFD3C6E3),
     choiceCardBackground = Color(0xFF808080),
-    mainButtonBackground = Color(0xFFCCBFBF),
+    mainButtonBackground = Color(0x4DCCBFBF),
     deleteRedColor = Color(0xFF9B0000),
     lightIconColor = Color(0xFFAFAFAF),
 )
@@ -63,7 +63,7 @@ val DarkCustomColors = AppCustomColors(
     cardBorderColor = Color(0xFF49454F),
     resultCardBackground = Color(0xFF3F384C),
     choiceCardBackground = Color(0xFF3E3E3E),
-    mainButtonBackground = Color(0xFF5C5454),
+    mainButtonBackground = Color(0x4D5C5454),
     deleteRedColor = Color(0xFFCF6679)
 )
 val LocalCustomColors = staticCompositionLocalOf<AppCustomColors> {

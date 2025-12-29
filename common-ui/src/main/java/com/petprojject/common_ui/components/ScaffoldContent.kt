@@ -26,11 +26,7 @@ fun ScaffoldContent(
     onTryAgain: () -> Unit = {}
 ) {
     if (isLoading) {
-        Box(
-            Modifier
-                .padding(paddingValues)
-                .fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
+        BackgroundImage {
             CircularProgressIndicator()
         }
     } else {
@@ -40,12 +36,14 @@ fun ScaffoldContent(
             }
 
             else -> {
-                TryAgainSection(
-                    modifier = Modifier
-                        .padding(paddingValues)
-                        .fillMaxSize(),
-                    error = error,
-                    onClick = { onTryAgain() })
+                BackgroundImage {
+                    TryAgainSection(
+                        modifier = Modifier
+                            .padding(paddingValues)
+                            .fillMaxSize(),
+                        error = error,
+                        onClick = { onTryAgain() })
+                }
             }
         }
     }

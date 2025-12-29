@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.feature_automobile.R
 import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ChoiceItem
@@ -87,104 +88,112 @@ fun ModelsScreen(
                 )
             }
         },
-        containerColor = CarTheme.customColors.backgroundColor,
     ) { padding ->
         ScaffoldContent(
             isLoading = uiState.isLoading, error =
                 uiState.error, paddingValues = padding, onTryAgain = {
                 onAction(ModelsContract.UiAction.TryAgain)
             }, content = {
-                LazyColumn(
-                    modifier = Modifier.padding(padding),
-                ) {
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
+                BackgroundImage {
+                    LazyColumn(
+                        modifier = Modifier.padding(padding),
+                    ) {
+                        item {
+                            Card(
+                                modifier = Modifier
+                                    .padding(horizontal = 12.dp)
+                                    .padding(vertical = 6.dp)
+                                    .fillMaxWidth(),
+                                border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                                colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                            ) {
+                                BasicText(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(8.dp),
+                                    text = "${stringResource(R.string.manufacturer) + ":"} ${uiState.manufacturer.second}",
+                                    autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                                    style = TextStyle(fontSize = 20.sp),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                        }
+                        item {
+                            OutlinedTextField(
+                                value = uiState.searchText,
+                                onValueChange = {
+                                    onAction(
+                                        ModelsContract.UiAction.OnSearchTextChange(
+                                            it
+                                        )
+                                    )
+                                },
+                                label = { Text(stringResource(R.string.enter_model)) },
+                                shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "${stringResource(R.string.manufacturer) + ":"} ${uiState.manufacturer.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
+                                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                                singleLine = true,
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = null,
+                                        tint = CarTheme.customColors.descriptionColor
+                                    )
+                                },
+                                trailingIcon = {
+                                    if (uiState.searchText.isNotEmpty()) {
+                                        IconButton(onClick = {
+                                            onAction(
+                                                ModelsContract.UiAction.OnSearchTextChange(
+                                                    ""
+                                                )
+                                            )
+                                        }) {
+                                            Icon(
+                                                imageVector = Icons.Default.Clear,
+                                                contentDescription = "Clear",
+                                                tint = CarTheme.customColors.descriptionColor
+                                            )
+                                        }
+                                    }
+                                },
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                                keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = CarTheme.customColors.textColor,
+                                    unfocusedTextColor = CarTheme.customColors.textColor,
+                                    cursorColor = CarTheme.customColors.tryAgainButtonContainer,
+                                    focusedLabelColor = CarTheme.customColors.tryAgainButtonContainer,
+                                    unfocusedLabelColor = CarTheme.customColors.descriptionColor,
+                                    focusedBorderColor = CarTheme.customColors.tryAgainButtonContainer,
+                                    unfocusedBorderColor = CarTheme.customColors.cardBorderColor,
+                                    focusedContainerColor = CarTheme.customColors.backgroundColor,
+                                    unfocusedContainerColor = CarTheme.customColors.backgroundColor
+                                )
                             )
                         }
-                    }
-                    item {
-                        OutlinedTextField(
-                            value = uiState.searchText,
-                            onValueChange = { onAction(ModelsContract.UiAction.OnSearchTextChange(it)) },
-                            label = { Text(stringResource(R.string.enter_model)) },
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 12.dp, vertical = 6.dp),
-                            singleLine = true,
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = null,
-                                    tint = CarTheme.customColors.descriptionColor
-                                )
-                            },
-                            trailingIcon = {
-                                if (uiState.searchText.isNotEmpty()) {
-                                    IconButton(onClick = {
-                                        onAction(
-                                            ModelsContract.UiAction.OnSearchTextChange(
-                                                ""
-                                            )
-                                        )
-                                    }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Clear,
-                                            contentDescription = "Clear",
-                                            tint = CarTheme.customColors.descriptionColor
-                                        )
-                                    }
+                        items(uiState.modelsMapForShow.toList()) { item ->
+                            ChoiceItem(
+                                modifier = Modifier
+                                    .padding(horizontal = 12.dp)
+                                    .padding(vertical = 6.dp)
+                                    .fillMaxWidth(),
+                                text = item.second,
+                                onClick = {
+                                    onAction(ModelsContract.UiAction.OnModelClick(item))
                                 }
-                            },
-                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                            keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedTextColor = CarTheme.customColors.textColor,
-                                unfocusedTextColor = CarTheme.customColors.textColor,
-                                cursorColor = CarTheme.customColors.tryAgainButtonContainer,
-                                focusedLabelColor = CarTheme.customColors.tryAgainButtonContainer,
-                                unfocusedLabelColor = CarTheme.customColors.descriptionColor,
-                                focusedBorderColor = CarTheme.customColors.tryAgainButtonContainer,
-                                unfocusedBorderColor = CarTheme.customColors.cardBorderColor,
-                                focusedContainerColor = CarTheme.customColors.backgroundColor,
-                                unfocusedContainerColor = CarTheme.customColors.backgroundColor
                             )
-                        )
-                    }
-                    items(uiState.modelsMapForShow.toList()) { item ->
-                        ChoiceItem(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(),
-                            text = item.second,
-                            onClick = {
-                                onAction(ModelsContract.UiAction.OnModelClick(item))
-                            }
-                        )
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(16.dp))
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                 }
-            })
+            }
+        )
     }
 }
 

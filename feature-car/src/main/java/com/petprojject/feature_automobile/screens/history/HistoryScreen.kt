@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.feature_automobile.R
 import com.petprojject.common_ui.R as commonUiR
@@ -32,12 +33,15 @@ import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.domain.car.model.CarHistoryItem
 import com.petprojject.feature_automobile.components.CarHistoryItemComponent
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 
 @Composable
 fun HistoryScreen(
     uiState: HistoryContract.UiState,
     onAction: (HistoryContract.UiAction) -> Unit,
 ) {
+    val hazeState = rememberHazeState()
     Scaffold(
         Modifier
             .fillMaxSize(),
@@ -67,8 +71,7 @@ fun HistoryScreen(
                     contentDescription = null
                 )
             }
-        },
-        containerColor = CarTheme.customColors.backgroundColor,
+        }
     ) { padding ->
         ScaffoldContent(
             isLoading = uiState.isLoading,
@@ -78,42 +81,44 @@ fun HistoryScreen(
                 onAction(HistoryContract.UiAction.TryAgain)
             },
             content = {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                ) {
-                    LazyColumn(Modifier.fillMaxSize()) {
-                        items(uiState.listOfHistory) { item ->
-                            CarHistoryItemComponent(
-                                modifier = Modifier
-                                    .padding(start = 8.dp)
-                                    .fillMaxWidth(),
-                                car = item,
-                                onItemClick = {
-                                    onAction(HistoryContract.UiAction.OnItemClick(item))
-                                },
-                                onItemDelete = {
-                                    onAction(HistoryContract.UiAction.DeleteItem(item))
-                                }
-                            )
-                            HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                    }
-                    MainButton(
+                BackgroundImage(hazeState = hazeState) {
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        text = stringResource(R.string.clear),
-                        onClick = {
-                            onAction(HistoryContract.UiAction.OnClearClick)
+                            .fillMaxSize()
+                            .padding(padding),
+                    ) {
+                        LazyColumn(Modifier.fillMaxSize()) {
+                            items(uiState.listOfHistory) { item ->
+                                CarHistoryItemComponent(
+                                    modifier = Modifier
+                                        .padding(start = 8.dp)
+                                        .fillMaxWidth(),
+                                    car = item,
+                                    onItemClick = {
+                                        onAction(HistoryContract.UiAction.OnItemClick(item))
+                                    },
+                                    onItemDelete = {
+                                        onAction(HistoryContract.UiAction.DeleteItem(item))
+                                    }
+                                )
+                                HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
                         }
-                    )
+                        MainButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(),
+                            text = stringResource(R.string.clear),
+                            onClick = {
+                                onAction(HistoryContract.UiAction.OnClearClick)
+                            }, hazeState = hazeState
+                        )
+                    }
                 }
             })
     }

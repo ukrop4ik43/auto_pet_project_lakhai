@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
@@ -42,82 +43,83 @@ import com.petprojject.common_ui.R as commonUiR
 fun ConclusionScreen(
     uiState: ConclusionContract.UiState, onAction: (ConclusionContract.UiAction) -> Unit
 ) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(CarTheme.customColors.backgroundColor)
-            .navigationBarsPadding()
-            .systemBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
+    BackgroundImage {
+        Column(
             Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .fillMaxSize()
+                .navigationBarsPadding()
+                .systemBarsPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier.align(Alignment.Center),
-                verticalAlignment = Alignment.CenterVertically
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
             ) {
-                Text(
-                    text = stringResource(R.string.powered_by) + " ",
-                    style = TextStyle(fontSize = 24.sp),
-                    color = CarTheme.customColors.textColor
-                )
-                Image(
-                    painter = painterResource(R.drawable.gemini),
-                    modifier = Modifier.height(24.dp),
+                Row(
+                    modifier = Modifier.align(Alignment.Center),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.powered_by) + " ",
+                        style = TextStyle(fontSize = 24.sp),
+                        color = CarTheme.customColors.textColor
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.gemini),
+                        modifier = Modifier.height(24.dp),
+                        contentDescription = null
+                    )
+                }
+                Icon(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .align(Alignment.CenterStart)
+                        .clickableNoIndication {
+                            onAction(ConclusionContract.UiAction.OnBackClick)
+                        },
+                    painter = painterResource(commonUiR.drawable.arrow_back),
+                    tint = CarTheme.customColors.iconColor,
                     contentDescription = null
                 )
             }
-            Icon(
+            Column(
                 modifier = Modifier
-                    .size(36.dp)
-                    .align(Alignment.CenterStart)
-                    .clickableNoIndication {
-                        onAction(ConclusionContract.UiAction.OnBackClick)
-                    },
-                painter = painterResource(commonUiR.drawable.arrow_back),
-                tint = CarTheme.customColors.iconColor,
-                contentDescription = null
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .background(CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
+                    .border(2.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator()
+                } else {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                            .padding(vertical = 12.dp),
+                        text = uiState.response,
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp,
+                        color = CarTheme.customColors.descriptionColor
+                    )
+                }
+            }
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .padding(vertical = 12.dp),
+                text = stringResource(R.string.ai_can_be_wrong),
+                textAlign = TextAlign.Center,
+                fontSize = 16.sp,
+                color = CarTheme.customColors.descriptionColor
             )
         }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .background(CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
-                .border(2.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
-                .weight(1f)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (uiState.isLoading) {
-                CircularProgressIndicator()
-            } else {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
-                        .padding(vertical = 12.dp),
-                    text = uiState.response,
-                    textAlign = TextAlign.Center,
-                    fontSize = 20.sp,
-                    color = CarTheme.customColors.descriptionColor
-                )
-            }
-        }
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-                .padding(vertical = 12.dp),
-            text = stringResource(R.string.ai_can_be_wrong),
-            textAlign = TextAlign.Center,
-            fontSize = 16.sp,
-            color = CarTheme.customColors.descriptionColor
-        )
     }
 }
 

@@ -75,4 +75,5 @@ dependencies {
     implementation(libs.firebase.ai)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.haze)
 }

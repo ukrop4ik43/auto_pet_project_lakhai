@@ -30,12 +30,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_automobile.R
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import com.petprojject.common_ui.R as commonUiR
 
 @Composable
@@ -43,8 +46,9 @@ fun SummaryScreen(
     uiState: SummaryContract.UiState,
     onAction: (SummaryContract.UiAction) -> Unit,
 ) {
+    val hazeState = rememberHazeState()
     Scaffold(
-        Modifier.fillMaxSize(), containerColor = CarTheme.customColors.backgroundColor, topBar = {
+        Modifier.fillMaxSize(), topBar = {
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -77,90 +81,95 @@ fun SummaryScreen(
             error = uiState.error,
             paddingValues = padding,
             content = {
-                Column(
-                    modifier = Modifier.padding(padding),
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                BackgroundImage(hazeState=hazeState) {
+                    Column(
+                        modifier = Modifier.padding(padding),
                     ) {
-                        BasicText(
+                        Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            text = "${R.string.manufacturer}: ${uiState.manufacturer.second}",
-                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                            style = TextStyle(fontSize = 20.sp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                    ) {
-                        BasicText(
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+                            BasicText(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                text = "${R.string.manufacturer}: ${uiState.manufacturer.second}",
+                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                                style = TextStyle(fontSize = 20.sp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                        Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            text = "${stringResource(R.string.model)}: ${uiState.model.second}",
-                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                            style = TextStyle(fontSize = 20.sp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                        colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                    ) {
-                        BasicText(
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+                            BasicText(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                text = "${stringResource(R.string.model)}: ${uiState.model.second}",
+                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                                style = TextStyle(fontSize = 20.sp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                        Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            text = "${stringResource(R.string.year)}: ${uiState.year.second}",
-                            autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                            style = TextStyle(fontSize = 20.sp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(),
+                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
+                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+                            BasicText(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                text = "${stringResource(R.string.year)}: ${uiState.year.second}",
+                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
+                                style = TextStyle(fontSize = 20.sp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                        Spacer(Modifier.weight(1f))
+                        MainButton(
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(), text = stringResource(R.string.finish), onClick = {
+                                onAction(SummaryContract.UiAction.OnFinishClick)
+                            }, hazeState = hazeState
                         )
+                        Spacer(Modifier.height(4.dp))
+                        MainButton(
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp)
+                                .padding(vertical = 6.dp)
+                                .fillMaxWidth(),
+                            text = stringResource(R.string.show_in_google),
+                            onClick = {
+                                onAction(SummaryContract.UiAction.OnShowInGoogleClick)
+                            }, hazeState = hazeState
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
-                    Spacer(Modifier.weight(1f))
-                    MainButton(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(), text = stringResource(R.string.finish), onClick = {
-                            onAction(SummaryContract.UiAction.OnFinishClick)
-                        })
-                    Spacer(Modifier.height(4.dp))
-                    MainButton(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .padding(vertical = 6.dp)
-                            .fillMaxWidth(),
-                        text = stringResource(R.string.show_in_google),
-                        onClick = {
-                            onAction(SummaryContract.UiAction.OnShowInGoogleClick)
-                        })
-                    Spacer(modifier = Modifier.height(16.dp))
                 }
-            })
+            }
+        )
     }
 }
 

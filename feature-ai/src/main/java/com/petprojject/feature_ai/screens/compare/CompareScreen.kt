@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
@@ -93,8 +94,7 @@ fun CompareScreen(
                     contentDescription = null
                 )
             }
-        },
-        containerColor = CarTheme.customColors.backgroundColor,
+        }
     ) { padding ->
         ScaffoldContent(
             isLoading = uiState.isLoading,
@@ -104,76 +104,78 @@ fun CompareScreen(
                 onAction(CompareContract.UiAction.TryAgain)
             },
             content = {
-                if (uiState.listOfIndexesChosenItems.size != 2) {
-                    LazyColumn(
-                        modifier = Modifier.padding(padding),
-                    ) {
-                        itemsIndexed(uiState.listOfHistory.toList()) { index, item ->
-                            CarChooseItemComponent(
-                                modifier = Modifier
-                                    .padding(start = 8.dp)
-                                    .fillMaxWidth(),
-                                car = item,
-                                onItemClick = {
-                                    onAction(CompareContract.UiAction.OnItemClick(index))
-                                },
-                                isChosen = uiState.listOfIndexesChosenItems.contains(index)
-                            )
-                            HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                    }
-                } else {
-                    Column(
-                        Modifier
-                            .padding(padding)
-                            .fillMaxSize()
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(1f)
-                                .padding(8.dp)
-                                .background(
-                                    CarTheme.customColors.cardBorderColor,
-                                    RoundedCornerShape(4.dp)
-                                )
-                                .border(
-                                    2.dp,
-                                    CarTheme.customColors.cardBorderColor,
-                                    RoundedCornerShape(4.dp)
-                                )
-                                .verticalScroll(rememberScrollState()),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
+                BackgroundImage {
+                    if (uiState.listOfIndexesChosenItems.size != 2) {
+                        LazyColumn(
+                            modifier = Modifier.padding(padding),
                         ) {
-                            if (uiState.isLoading) {
-                                CircularProgressIndicator()
-                            } else {
-                                Text(
+                            itemsIndexed(uiState.listOfHistory.toList()) { index, item ->
+                                CarChooseItemComponent(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 8.dp)
-                                        .padding(vertical = 12.dp),
-                                    text = uiState.response,
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 20.sp,
-                                    color = CarTheme.customColors.descriptionColor
+                                        .padding(start = 8.dp)
+                                        .fillMaxWidth(),
+                                    car = item,
+                                    onItemClick = {
+                                        onAction(CompareContract.UiAction.OnItemClick(index))
+                                    },
+                                    isChosen = uiState.listOfIndexesChosenItems.contains(index)
                                 )
+                                HorizontalDivider(color = CarTheme.customColors.cardBorderColor)
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(16.dp))
                             }
                         }
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 8.dp)
-                                .padding(vertical = 12.dp),
-                            text = stringResource(R.string.ai_can_be_wrong),
-                            textAlign = TextAlign.Center,
-                            fontSize = 16.sp,
-                            color = CarTheme.customColors.descriptionColor
-                        )
+                    } else {
+                        Column(
+                            Modifier
+                                .padding(padding)
+                                .fillMaxSize()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .padding(8.dp)
+                                    .background(
+                                        CarTheme.customColors.cardBorderColor,
+                                        RoundedCornerShape(4.dp)
+                                    )
+                                    .border(
+                                        2.dp,
+                                        CarTheme.customColors.cardBorderColor,
+                                        RoundedCornerShape(4.dp)
+                                    )
+                                    .verticalScroll(rememberScrollState()),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                if (uiState.isLoading) {
+                                    CircularProgressIndicator()
+                                } else {
+                                    Text(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 8.dp)
+                                            .padding(vertical = 12.dp),
+                                        text = uiState.response,
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 20.sp,
+                                        color = CarTheme.customColors.descriptionColor
+                                    )
+                                }
+                            }
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp)
+                                    .padding(vertical = 12.dp),
+                                text = stringResource(R.string.ai_can_be_wrong),
+                                textAlign = TextAlign.Center,
+                                fontSize = 16.sp,
+                                color = CarTheme.customColors.descriptionColor
+                            )
+                        }
                     }
                 }
             })

@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.petprojject.common_ui.components.BackgroundImage
 import com.petprojject.feature_automobile.R
 import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ChoiceItem
@@ -66,8 +67,7 @@ fun ManufacturersScreen(
                     contentDescription = null
                 )
             }
-        },
-        containerColor = CarTheme.customColors.backgroundColor,
+        }
     ) { padding ->
         ScaffoldContent(
             isLoading = uiState.isLoading,
@@ -77,25 +77,27 @@ fun ManufacturersScreen(
                 onAction(ManufacturersContract.UiAction.TryAgain)
             },
             content = {
-                LazyColumn(
-                    modifier = Modifier.padding(padding),
-                ) {
-                    items(uiState.manufacturersMap.toList()) { item ->
-                        ChoiceItem(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .padding(vertical = 6.dp)
-                                .fillMaxWidth(), text = item.second, onClick = {
-                                onAction(
-                                    ManufacturersContract.UiAction.OnManufacturerClick(
-                                        item
+                BackgroundImage {
+                    LazyColumn(
+                        modifier = Modifier.padding(padding),
+                    ) {
+                        items(uiState.manufacturersMap.toList()) { item ->
+                            ChoiceItem(
+                                modifier = Modifier
+                                    .padding(horizontal = 12.dp)
+                                    .padding(vertical = 6.dp)
+                                    .fillMaxWidth(), text = item.second, onClick = {
+                                    onAction(
+                                        ManufacturersContract.UiAction.OnManufacturerClick(
+                                            item
+                                        )
                                     )
-                                )
-                            })
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(16.dp))
-                        onAction(ManufacturersContract.UiAction.OnBottomReached)
+                                })
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            onAction(ManufacturersContract.UiAction.OnBottomReached)
+                        }
                     }
                 }
             })
