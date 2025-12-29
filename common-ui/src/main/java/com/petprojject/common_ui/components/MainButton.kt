@@ -40,8 +40,8 @@ fun MainButton(
                 style = HazeStyle(
                     backgroundColor = CarTheme.customColors.mainButtonBackground,
                     tint = HazeTint(CarTheme.customColors.mainButtonBackground),
-                    blurRadius = 4.dp,
-                    noiseFactor = 0.0f,
+                    blurRadius = 16.dp,
+                    noiseFactor = 0.3f,
                     fallbackTint = HazeTint(CarTheme.customColors.mainButtonBackground)
                 )
             )

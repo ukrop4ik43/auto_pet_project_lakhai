@@ -50,6 +50,7 @@ import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
+import dev.chrisbanes.haze.rememberHazeState
 
 @Composable
 fun ModelsScreen(
@@ -57,7 +58,7 @@ fun ModelsScreen(
     onAction: (ModelsContract.UiAction) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-
+    val hazeState = rememberHazeState(true)
     Scaffold(
         Modifier
             .fillMaxSize(),
@@ -94,9 +95,9 @@ fun ModelsScreen(
                 uiState.error, paddingValues = padding, onTryAgain = {
                 onAction(ModelsContract.UiAction.TryAgain)
             }, content = {
-                BackgroundImage {
+                BackgroundImage(hazeState = hazeState) {
                     LazyColumn(
-                        modifier = Modifier.padding(padding),
+                        modifier = Modifier.fillMaxSize().padding(padding),
                     ) {
                         item {
                             Card(
@@ -184,7 +185,7 @@ fun ModelsScreen(
                                 text = item.second,
                                 onClick = {
                                     onAction(ModelsContract.UiAction.OnModelClick(item))
-                                }
+                                }, hazeState = hazeState
                             )
                         }
                         item {

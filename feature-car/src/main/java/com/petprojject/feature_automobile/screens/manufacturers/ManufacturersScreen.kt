@@ -32,12 +32,14 @@ import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
+import dev.chrisbanes.haze.rememberHazeState
 
 @Composable
 fun ManufacturersScreen(
     uiState: ManufacturersContract.UiState,
     onAction: (ManufacturersContract.UiAction) -> Unit,
 ) {
+    val hazeState = rememberHazeState(true)
     Scaffold(
         Modifier
             .fillMaxSize(),
@@ -77,7 +79,7 @@ fun ManufacturersScreen(
                 onAction(ManufacturersContract.UiAction.TryAgain)
             },
             content = {
-                BackgroundImage {
+                BackgroundImage(hazeState = hazeState) {
                     LazyColumn(
                         modifier = Modifier.padding(padding),
                     ) {
@@ -92,7 +94,8 @@ fun ManufacturersScreen(
                                             item
                                         )
                                     )
-                                })
+                                }, hazeState = hazeState
+                            )
                         }
                         item {
                             Spacer(modifier = Modifier.height(16.dp))
