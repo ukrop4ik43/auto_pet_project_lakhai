@@ -110,7 +110,7 @@ fun CompareScreen(
                 BackgroundImage(hazeState = hazeState) {
                     if (uiState.listOfIndexesChosenItems.size != 2) {
                         LazyColumn(
-                            modifier = Modifier.padding(padding),
+                            modifier = Modifier.fillMaxSize().padding(padding),
                         ) {
                             itemsIndexed(uiState.listOfHistory.toList()) { index, item ->
                                 CarChooseItemComponent(

@@ -41,9 +41,8 @@ fun CarChooseItemComponent(
     Row(
         modifier
             .fillMaxWidth()
-            .background(CarTheme.customColors.backgroundColor)
             .animateContentSize()
-            .padding(vertical = 4.dp)
+            .padding(vertical = 6.dp)
             .clickableNoIndication {
                 onItemClick(car)
             }, verticalAlignment = Alignment.CenterVertically

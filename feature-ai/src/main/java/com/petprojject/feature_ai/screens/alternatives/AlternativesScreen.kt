@@ -100,7 +100,9 @@ fun AlternativesScreen(
                 BackgroundImage(hazeState = hazeState) {
                     if (uiState.response.isEmpty()) {
                         LazyColumn(
-                            modifier = Modifier.padding(padding),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(padding),
                         ) {
                             items(uiState.listOfHistory.toList()) { item ->
                                 CarChooseItemComponent(
@@ -122,8 +124,8 @@ fun AlternativesScreen(
                     } else {
                         Column(
                             Modifier
-                                .padding(padding)
                                 .fillMaxSize()
+                                .padding(padding)
                         ) {
                             AiResponseContainer(
                                 modifier = Modifier.weight(1f),

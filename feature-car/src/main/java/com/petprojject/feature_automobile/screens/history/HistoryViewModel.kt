@@ -14,6 +14,7 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
@@ -53,7 +54,9 @@ class HistoryViewModel @Inject constructor(
 
             is HistoryContract.UiAction.DeleteItem -> {
                 viewModelScope.launch(ioDispatcher) {
-                    carHistoryRepository.deleteCarFromHistory(uiAction.car)
+                    runBlocking {
+                        carHistoryRepository.deleteCarFromHistory(uiAction.car)
+                    }
                     getHistoryFromDb()
                 }
             }

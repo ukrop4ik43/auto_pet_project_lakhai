@@ -36,7 +36,7 @@ fun CarHistoryItemComponent(
         confirmValueChange = {
             if (it == SwipeToDismissBoxValue.EndToStart) onItemDelete(car)
             it != SwipeToDismissBoxValue.StartToEnd
-        }
+        },
     )
 
     SwipeToDismissBox(
@@ -45,22 +45,7 @@ fun CarHistoryItemComponent(
         modifier = modifier,
         backgroundContent = {
             when (swipeToDismissBoxState.dismissDirection) {
-                SwipeToDismissBoxValue.EndToStart -> {
-                    Row(
-                        modifier
-                            .fillMaxSize()
-                            .background(CarTheme.customColors.deleteRedColor),
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            painter = painterResource(R.drawable.close_24),
-                            tint = CarTheme.customColors.lightIconColor,
-                            contentDescription = null
-                        )
-                    }
-                }
+                SwipeToDismissBoxValue.EndToStart -> {}
 
                 SwipeToDismissBoxValue.Settled -> {}
                 SwipeToDismissBoxValue.StartToEnd -> {}
@@ -70,10 +55,9 @@ fun CarHistoryItemComponent(
         Row(
             Modifier
                 .fillMaxWidth()
-                .background(CarTheme.customColors.backgroundColor)
                 .animateContentSize()
                 .padding(vertical = 4.dp)
-                .clickableNoIndication{
+                .clickableNoIndication {
                     onItemClick(car)
                 },
             verticalAlignment = Alignment.CenterVertically
