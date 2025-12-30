@@ -10,6 +10,8 @@ Room was added for caching history of choices.
 
 The app uses the latest Jetpack Navigation libraries, offering modern and type-safe navigation between screens.
 
+Gemini API was used to augmentate functionality of app, it generates information about user, compares cars, give alternatives of cars that were chosen.
+
 The project also includes unit and instrumented tests, ensuring reliability and maintainability.
 
 ![First screenshot](screenshots/screen_1.jpg)
