@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -37,13 +38,20 @@ import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_ai.R
+import com.petprojject.feature_ai.components.AiResponseContainer
+import dev.chrisbanes.haze.HazeStyle
+import dev.chrisbanes.haze.HazeTint
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import com.petprojject.common_ui.R as commonUiR
 
 @Composable
 fun ConclusionScreen(
     uiState: ConclusionContract.UiState, onAction: (ConclusionContract.UiAction) -> Unit
 ) {
-    BackgroundImage {
+    val hazeState = rememberHazeState(true)
+    BackgroundImage(hazeState = hazeState) {
         Column(
             Modifier
                 .fillMaxSize()
@@ -83,17 +91,7 @@ fun ConclusionScreen(
                     contentDescription = null
                 )
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .background(CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
-                    .border(2.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(4.dp))
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            AiResponseContainer(modifier = Modifier.weight(1f), hazeState = hazeState, content = {
                 if (uiState.isLoading) {
                     CircularProgressIndicator()
                 } else {
@@ -108,7 +106,7 @@ fun ConclusionScreen(
                         color = CarTheme.customColors.descriptionColor
                     )
                 }
-            }
+            })
             Text(
                 modifier = Modifier
                     .fillMaxWidth()

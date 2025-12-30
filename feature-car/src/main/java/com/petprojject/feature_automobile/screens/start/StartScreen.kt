@@ -60,7 +60,6 @@ fun StartScreen(
                     onAction(StartContract.UiAction.OnHistoryClick)
                 }, hazeState = hazeState
             )
-
             Spacer(Modifier.height(4.dp))
             MainButton(
                 modifier = Modifier

@@ -40,13 +40,16 @@ import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.AutoPetProjectLakhaiTheme
 import com.petprojject.common_ui.theme.CarTheme
 import com.petprojject.feature_ai.R
+import com.petprojject.feature_ai.components.AiResponseContainer
 import com.petprojject.feature_ai.components.CarChooseItemComponent
+import dev.chrisbanes.haze.rememberHazeState
 import com.petprojject.common_ui.R as commonUiR
 
 @Composable
 fun CompareScreen(
     uiState: CompareContract.UiState, onAction: (CompareContract.UiAction) -> Unit
 ) {
+    val hazeState = rememberHazeState(true)
     Scaffold(
         Modifier
             .fillMaxSize(),
@@ -104,7 +107,7 @@ fun CompareScreen(
                 onAction(CompareContract.UiAction.TryAgain)
             },
             content = {
-                BackgroundImage {
+                BackgroundImage(hazeState = hazeState) {
                     if (uiState.listOfIndexesChosenItems.size != 2) {
                         LazyColumn(
                             modifier = Modifier.padding(padding),
@@ -132,39 +135,25 @@ fun CompareScreen(
                                 .padding(padding)
                                 .fillMaxSize()
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f)
-                                    .padding(8.dp)
-                                    .background(
-                                        CarTheme.customColors.cardBorderColor,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .border(
-                                        2.dp,
-                                        CarTheme.customColors.cardBorderColor,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .verticalScroll(rememberScrollState()),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                if (uiState.isLoading) {
-                                    CircularProgressIndicator()
-                                } else {
-                                    Text(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 8.dp)
-                                            .padding(vertical = 12.dp),
-                                        text = uiState.response,
-                                        textAlign = TextAlign.Center,
-                                        fontSize = 20.sp,
-                                        color = CarTheme.customColors.descriptionColor
-                                    )
-                                }
-                            }
+                            AiResponseContainer(
+                                modifier = Modifier.weight(1f),
+                                hazeState = hazeState,
+                                content = {
+                                    if (uiState.isLoading) {
+                                        CircularProgressIndicator()
+                                    } else {
+                                        Text(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 8.dp)
+                                                .padding(vertical = 12.dp),
+                                            text = uiState.response,
+                                            textAlign = TextAlign.Center,
+                                            fontSize = 20.sp,
+                                            color = CarTheme.customColors.descriptionColor
+                                        )
+                                    }
+                                })
                             Text(
                                 modifier = Modifier
                                     .fillMaxWidth()

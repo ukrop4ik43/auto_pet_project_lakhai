@@ -1,8 +1,10 @@
 package com.petprojject.common_ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,23 +29,12 @@ import dev.chrisbanes.haze.rememberHazeState
 fun ChoiceItem(
     modifier: Modifier = Modifier,
     text: String,
-    hazeState: HazeState,
     onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
-
             .clip(RoundedCornerShape(8.dp))
-            .hazeEffect(
-                state = hazeState,
-                style = HazeStyle(
-                    backgroundColor = CarTheme.customColors.choiceCardBackground,
-                    tint = HazeTint(CarTheme.customColors.choiceCardBackground),
-                    blurRadius = 20.dp,
-                    noiseFactor = 0.5f,
-                    fallbackTint = HazeTint(CarTheme.customColors.choiceCardBackground)
-                )
-            )
+            .background(CarTheme.customColors.choiceCardBackground,RoundedCornerShape(8.dp))
             .border(1.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(8.dp))
             .clickableNoIndication {
                 onClick()
@@ -52,9 +43,11 @@ fun ChoiceItem(
     ) {
         Text(
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 8.dp)
                 .padding(vertical = 12.dp),
-            text = text
+            text = text,
+            color = CarTheme.customColors.textColor
         )
     }
 }
@@ -63,7 +56,6 @@ fun ChoiceItem(
 @Preview
 private fun ChoiceItemPreview() {
     AutoPetProjectLakhaiTheme {
-        val hazeState= rememberHazeState(true)
-        ChoiceItem(text = "Choice item", hazeState = hazeState, onClick = {})
+        ChoiceItem(text = "Choice item", onClick = {})
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,11 +31,12 @@ fun MainButton(
     modifier: Modifier = Modifier,
     text: String,
     hazeState: HazeState,
+    shape: Shape = RoundedCornerShape(16.dp),
     onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
+            .clip(shape)
             .hazeEffect(
                 state = hazeState,
                 style = HazeStyle(
@@ -45,7 +47,7 @@ fun MainButton(
                     fallbackTint = HazeTint(CarTheme.customColors.mainButtonBackground)
                 )
             )
-            .border(1.dp, CarTheme.customColors.cardBorderColor, RoundedCornerShape(8.dp))
+            .border(1.dp, CarTheme.customColors.cardBorderColor, shape)
             .clickableNoIndication {
                 onClick()
             }, contentAlignment = Alignment.Center
@@ -56,7 +58,8 @@ fun MainButton(
                 .padding(horizontal = 8.dp)
                 .padding(vertical = 12.dp),
             text = text,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = CarTheme.customColors.textColor
         )
     }
 }

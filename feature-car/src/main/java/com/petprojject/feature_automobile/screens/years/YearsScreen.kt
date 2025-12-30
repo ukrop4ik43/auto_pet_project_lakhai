@@ -32,11 +32,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.components.BackgroundImage
+import com.petprojject.common_ui.components.ChoiceItem
+import com.petprojject.common_ui.components.InfoTab
 import com.petprojject.feature_automobile.R
 import com.petprojject.common_ui.R as commonUiR
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
 import com.petprojject.common_ui.theme.CarTheme
+import com.petprojject.feature_automobile.screens.models.ModelsContract
 
 
 @Composable
@@ -87,78 +90,34 @@ fun YearsScreen(
                             .padding(padding),
                     ) {
                         item {
-                            Card(
-                                modifier = Modifier
+                            InfoTab(
+                                Modifier
                                     .padding(horizontal = 12.dp)
                                     .padding(vertical = 6.dp)
                                     .fillMaxWidth(),
-                                border = BorderStroke(
-                                    2.dp,
-                                    CarTheme.customColors.cardBorderColor
-                                ),
-                                colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                            ) {
-                                BasicText(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(8.dp),
-                                    text = "${stringResource(R.string.manufacturer)}: ${uiState.manufacturer.second}",
-                                    autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                    style = TextStyle(fontSize = 20.sp),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
+                                text = "${stringResource(R.string.manufacturer)}: ${uiState.manufacturer.second}",
+                            )
                         }
                         item {
-                            Card(
+                            InfoTab(
+                                Modifier
+                                    .padding(horizontal = 12.dp)
+                                    .padding(vertical = 6.dp)
+                                    .fillMaxWidth(),
+                                text = "${stringResource(R.string.model)}: ${uiState.model.second}",
+                            )
+                        }
+                        items(uiState.yearsMap.toList()) { item ->
+                            ChoiceItem(
                                 modifier = Modifier
                                     .padding(horizontal = 12.dp)
                                     .padding(vertical = 6.dp)
                                     .fillMaxWidth(),
-                                border = BorderStroke(
-                                    2.dp,
-                                    CarTheme.customColors.cardBorderColor
-                                ),
-                                colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                            ) {
-                                BasicText(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(8.dp),
-                                    text = "${stringResource(R.string.model)}: ${uiState.model.second}",
-                                    autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                    style = TextStyle(fontSize = 20.sp),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                        }
-                        items(uiState.yearsMap.toList()) { item ->
-                            Card(
-                                modifier = Modifier
-                                    .padding(horizontal = 12.dp)
-                                    .padding(vertical = 6.dp)
-                                    .fillMaxWidth()
-                                    .clickableNoIndication {
-                                        onAction(YearsContract.UiAction.OnYearClick(item))
-                                    },
-                                border = BorderStroke(
-                                    1.dp,
-                                    CarTheme.customColors.cardBorderColor
-                                ),
-                                colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.choiceCardBackground),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-                            ) {
-                                Text(
-                                    modifier = Modifier
-                                        .padding(horizontal = 8.dp)
-                                        .padding(vertical = 12.dp),
-                                    text = item.second
-                                )
-                            }
+                                text = item.second,
+                                onClick = {
+                                    onAction(YearsContract.UiAction.OnYearClick(item))
+                                }
+                            )
                         }
                         item {
                             Spacer(modifier = Modifier.height(16.dp))

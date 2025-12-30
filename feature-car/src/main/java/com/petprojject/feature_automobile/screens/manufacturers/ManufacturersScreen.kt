@@ -94,7 +94,7 @@ fun ManufacturersScreen(
                                             item
                                         )
                                     )
-                                }, hazeState = hazeState
+                                }
                             )
                         }
                         item {

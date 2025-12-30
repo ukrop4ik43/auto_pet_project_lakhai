@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.petprojject.common_ui.components.BackgroundImage
+import com.petprojject.common_ui.components.InfoTab
 import com.petprojject.common_ui.components.MainButton
 import com.petprojject.common_ui.components.ScaffoldContent
 import com.petprojject.common_ui.modifiers.clickableNoIndication
@@ -81,70 +82,31 @@ fun SummaryScreen(
             error = uiState.error,
             paddingValues = padding,
             content = {
-                BackgroundImage(hazeState=hazeState) {
+                BackgroundImage(hazeState = hazeState) {
                     Column(
                         modifier = Modifier.padding(padding),
                     ) {
-                        Card(
-                            modifier = Modifier
+                        InfoTab(
+                            Modifier
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "${R.string.manufacturer}: ${uiState.manufacturer.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                        Card(
-                            modifier = Modifier
+                            text = "${R.string.manufacturer}: ${uiState.manufacturer.second}"
+                        )
+                        InfoTab(
+                            Modifier
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "${stringResource(R.string.model)}: ${uiState.model.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                        Card(
-                            modifier = Modifier
+                            text = "${stringResource(R.string.model)}: ${uiState.model.second}",
+                        )
+                        InfoTab(
+                            Modifier
                                 .padding(horizontal = 12.dp)
                                 .padding(vertical = 6.dp)
                                 .fillMaxWidth(),
-                            border = BorderStroke(2.dp, CarTheme.customColors.cardBorderColor),
-                            colors = CardDefaults.cardColors(containerColor = CarTheme.customColors.resultCardBackground),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
-                        ) {
-                            BasicText(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                text = "${stringResource(R.string.year)}: ${uiState.year.second}",
-                                autoSize = TextAutoSize.StepBased(maxFontSize = 20.sp),
-                                style = TextStyle(fontSize = 20.sp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
+                            text = "${stringResource(R.string.year)}: ${uiState.year.second}",
+                        )
                         Spacer(Modifier.weight(1f))
                         MainButton(
                             modifier = Modifier
