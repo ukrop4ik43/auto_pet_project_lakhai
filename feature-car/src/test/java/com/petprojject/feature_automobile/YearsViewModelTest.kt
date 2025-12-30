@@ -1,6 +1,6 @@
 package com.petprojject.feature_automobile
 
-`import com.petprojject.core.base.retrofit.RetrofitResult
+import com.petprojject.core.base.retrofit.RetrofitResult
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.screens.years.YearsContract
 import com.petprojject.feature_automobile.screens.years.YearsViewModel

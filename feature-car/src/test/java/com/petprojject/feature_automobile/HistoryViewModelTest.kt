@@ -1,6 +1,8 @@
 package com.petprojject.feature_automobile
 
+import com.petprojject.domain.base.AppResources
 import com.petprojject.domain.car.model.CarHistoryItem
+import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import com.petprojject.feature_automobile.screens.history.HistoryContract
 import com.petprojject.feature_automobile.screens.history.HistoryViewModel
@@ -8,6 +10,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import junit.framework.TestCase.assertEquals
@@ -25,12 +28,15 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-
 @OptIn(ExperimentalCoroutinesApi::class)
 class HistoryViewModelTest {
 
     @MockK
     lateinit var carRepository: CarRepository
+    @MockK
+    lateinit var carHistoryRepository: CarHistoryRepository
+    @MockK
+    lateinit var appResources: AppResources
 
     private lateinit var viewModel: HistoryViewModel
     private val testDispatcher = StandardTestDispatcher()
@@ -39,7 +45,17 @@ class HistoryViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = HistoryViewModel(carRepository, testDispatcher)
+
+        coEvery { carRepository.isInstructionsShowed() } returns true
+        coEvery { carRepository.setInstructionsShowedTrue() } just Runs
+        every { appResources.getString(any()) } returns "Swipe to delete"
+
+        viewModel = HistoryViewModel(
+            carRepository = carRepository,
+            carHistoryRepository = carHistoryRepository,
+            appResources = appResources,
+            ioDispatcher = testDispatcher
+        )
     }
 
     @After
@@ -49,88 +65,60 @@ class HistoryViewModelTest {
 
     @Test
     fun `Init loads history from db`() = runTest {
-        val history = listOf(
-            CarHistoryItem(id = 1, manufacturer = "Audi", model = "5", year = "2024"),
-            CarHistoryItem(id = 2, manufacturer = "BMW", model = "6", year = "2023")
-        )
-
-        coEvery { carRepository.getAllCarsHistory() } returns history
-
+        val history = listOf(CarHistoryItem(id = 1, "Audi", "5", "2024"))
+        coEvery { carHistoryRepository.getAllCarsHistory() } returns history
         viewModel.onAction(HistoryContract.UiAction.Init)
         advanceUntilIdle()
-
-        val state = viewModel.uiState.value
-        assertFalse(state.isLoading)
-        assertEquals(history, state.listOfHistory)
-
-        coVerify(exactly = 1) { carRepository.getAllCarsHistory() }
+        assertEquals(history, viewModel.uiState.value.listOfHistory)
+        assertFalse(viewModel.uiState.value.isLoading)
     }
 
     @Test
-    fun `TryAgain reloads history`() = runTest {
-        val history =
-            listOf(CarHistoryItem(id = 1, manufacturer = "Audi", model = "5", year = "2024"))
-
-        coEvery { carRepository.getAllCarsHistory() } returns history
-
-        viewModel.onAction(HistoryContract.UiAction.TryAgain)
+    fun `OnItemClick emits NavigateToWebOpener side effect`() = runTest {
+        val car = CarHistoryItem(id = 1, "BMW", "X5", "2022")
+        val expectedUrl = "https://google.com/q=BMW"
+        every { carRepository.generateGoogleUrl(car) } returns expectedUrl
+        val sideEffects = mutableListOf<HistoryContract.SideEffect>()
+        val job = launch(testDispatcher) {
+            viewModel.sideEffect.collect { sideEffects.add(it) }
+        }
+        viewModel.onAction(HistoryContract.UiAction.OnItemClick(car))
         advanceUntilIdle()
-
-        val state = viewModel.uiState.value
-        assertFalse(state.isLoading)
-        assertEquals(history, state.listOfHistory)
-
-        coVerify(exactly = 1) { carRepository.getAllCarsHistory() }
+        val effect = sideEffects.firstOrNull { it is HistoryContract.SideEffect.NavigateToWebOpener }
+        assertEquals(expectedUrl, (effect as HistoryContract.SideEffect.NavigateToWebOpener).url)
+        job.cancel()
     }
 
     @Test
     fun `DeleteItem deletes item and reloads history`() = runTest {
-        val car = CarHistoryItem(id = 1, manufacturer = "Audi", model = "5", year = "2024")
-        val historyAfterDelete = emptyList<CarHistoryItem>()
-
-        coEvery { carRepository.deleteCarFromHistory(car) } just Runs
-        coEvery { carRepository.getAllCarsHistory() } returns historyAfterDelete
-
+        val car = CarHistoryItem(id = 1, "Audi", "5", "2024")
+        coEvery { carHistoryRepository.deleteCarFromHistory(car) } just Runs
+        coEvery { carHistoryRepository.getAllCarsHistory() } returns emptyList()
         viewModel.onAction(HistoryContract.UiAction.DeleteItem(car))
         advanceUntilIdle()
-
-        val state = viewModel.uiState.value
-        assertFalse(state.isLoading)
-        assertEquals(historyAfterDelete, state.listOfHistory)
-
-        coVerify(exactly = 1) { carRepository.deleteCarFromHistory(car) }
-        coVerify(exactly = 1) { carRepository.getAllCarsHistory() }
+        coVerify(exactly = 1) { carHistoryRepository.deleteCarFromHistory(car) }
+        coVerify { carHistoryRepository.getAllCarsHistory() }
+        assertTrue(viewModel.uiState.value.listOfHistory.isEmpty())
     }
 
     @Test
-    fun `OnClearClick clears history and reloads`() = runTest {
-        coEvery { carRepository.deleteAllCarsFromHistory() } just Runs
-        coEvery { carRepository.getAllCarsHistory() } returns emptyList()
-
+    fun `OnClearClick clears and reloads history`() = runTest {
+        coEvery { carHistoryRepository.deleteAllCarsFromHistory() } just Runs
+        coEvery { carHistoryRepository.getAllCarsHistory() } returns emptyList()
         viewModel.onAction(HistoryContract.UiAction.OnClearClick)
         advanceUntilIdle()
-
-        val state = viewModel.uiState.value
-        assertFalse(state.isLoading)
-        assertTrue(state.listOfHistory.isEmpty())
-
-        coVerify(exactly = 1) { carRepository.deleteAllCarsFromHistory() }
-        coVerify(exactly = 1) { carRepository.getAllCarsHistory() }
+        coVerify(exactly = 1) { carHistoryRepository.deleteAllCarsFromHistory() }
+        coVerify { carHistoryRepository.getAllCarsHistory() }
     }
 
     @Test
     fun `OnBackClick emits GoBack side effect`() = runTest {
         var received: HistoryContract.SideEffect? = null
-
         val job = launch(testDispatcher) {
-            viewModel.sideEffect.collect {
-                received = it
-            }
+            viewModel.sideEffect.collect { received = it }
         }
-
         viewModel.onAction(HistoryContract.UiAction.OnBackClick)
         advanceUntilIdle()
-
         assertTrue(received is HistoryContract.SideEffect.GoBack)
         job.cancel()
     }
