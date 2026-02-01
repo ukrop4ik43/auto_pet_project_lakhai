@@ -38,7 +38,7 @@ class ManufacturersViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = ManufacturersViewModel(carRepository, testDispatcher)
+        viewModel = ManufacturersViewModel(carRepository)
     }
 
     @After

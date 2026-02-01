@@ -4,13 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.core.di.IoDispatcher
 import com.petprojject.core.base.retrofit.RetrofitResult
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -18,7 +15,6 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ModelsViewModel @Inject constructor(
     private val carRepository: CarRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<ModelsContract.UiState, ModelsContract.UiAction, ModelsContract.SideEffect> by mvi(
         initialUiState()
@@ -78,7 +74,7 @@ class ModelsViewModel @Inject constructor(
     private fun collectModels(manufacturerId: String? = null) {
         collectJob?.cancel()
 
-        collectJob = viewModelScope.launch(ioDispatcher) {
+        collectJob = viewModelScope.launch {
             when (
                 val carsMap = carRepository.getModels(
                     manufacturer = manufacturerId ?: uiState.value.manufacturer.first

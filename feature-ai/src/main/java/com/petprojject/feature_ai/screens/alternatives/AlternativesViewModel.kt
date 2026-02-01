@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_ai.domain.AiGeneratorRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 class AlternativesViewModel @Inject constructor(
     private val aiGeneratorRepository: AiGeneratorRepository,
     private val carHistoryRepository: CarHistoryRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<AlternativesContract.UiState, AlternativesContract.UiAction, AlternativesContract.SideEffect> by mvi(
         initialUiState()
@@ -41,7 +39,7 @@ class AlternativesViewModel @Inject constructor(
 
             is AlternativesContract.UiAction.OnItemClick -> {
                 updateUiState { copy(isLoading = true) }
-                viewModelScope.launch(ioDispatcher) {
+                viewModelScope.launch {
                     val comparison = aiGeneratorRepository.getCarAlternatives(
                         uiAction.item
                     )
@@ -67,7 +65,7 @@ class AlternativesViewModel @Inject constructor(
     }
 
     private fun getHistoryFromDb() {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             updateUiState { copy(isLoading = true) }
             val newList = carHistoryRepository.getAllCarsHistory()
             updateUiState { copy(listOfHistory = newList, isLoading = false) }

@@ -30,6 +30,7 @@ class AlternativesViewModelTest {
 
     @MockK
     lateinit var aiGeneratorRepository: AiGeneratorRepository
+
     @MockK
     lateinit var carHistoryRepository: CarHistoryRepository
 
@@ -46,7 +47,6 @@ class AlternativesViewModelTest {
         viewModel = AlternativesViewModel(
             aiGeneratorRepository = aiGeneratorRepository,
             carHistoryRepository = carHistoryRepository,
-            ioDispatcher = testDispatcher
         )
     }
 

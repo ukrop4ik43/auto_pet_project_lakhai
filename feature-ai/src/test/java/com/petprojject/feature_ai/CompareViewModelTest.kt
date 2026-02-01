@@ -45,7 +45,6 @@ class CompareViewModelTest {
         viewModel = CompareViewModel(
             aiGeneratorRepository = aiGeneratorRepository,
             carHistoryRepository = carHistoryRepository,
-            ioDispatcher = testDispatcher
         )
     }
 

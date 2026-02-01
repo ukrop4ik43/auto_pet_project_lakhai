@@ -4,20 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.core.di.IoDispatcher
 import com.petprojject.core.base.retrofit.RetrofitResult
 import com.petprojject.feature_automobile.domain.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 @HiltViewModel
 class YearsViewModel @Inject constructor(
     private val carRepository: CarRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<YearsContract.UiState, YearsContract.UiAction, YearsContract.SideEffect> by mvi(
         initialUiState()
@@ -65,7 +61,7 @@ class YearsViewModel @Inject constructor(
 
 
     private fun collectYears(manufacturerId: String? = null, modelId: String? = null) {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             when (val yearsMap = carRepository.getModelYears(
                 manufacturer = manufacturerId ?: uiState.value.manufacturer.first,
                 mainType = modelId ?: uiState.value.model.first

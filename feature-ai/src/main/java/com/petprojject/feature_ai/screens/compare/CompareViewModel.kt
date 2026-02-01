@@ -4,20 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petprojject.core.base.MVI
 import com.petprojject.core.base.mvi
-import com.petprojject.core.di.IoDispatcher
 import com.petprojject.domain.car.repository.CarHistoryRepository
 import com.petprojject.feature_ai.domain.AiGeneratorRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CompareViewModel @Inject constructor(
     private val aiGeneratorRepository: AiGeneratorRepository,
     private val carHistoryRepository: CarHistoryRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel(),
     MVI<CompareContract.UiState, CompareContract.UiAction, CompareContract.SideEffect> by mvi(
         initialUiState()
@@ -50,10 +46,10 @@ class CompareViewModel @Inject constructor(
                 }
                 if (mutableStateFromTheIndexes.size == NUMBER_OF_CARS_TO_COMPARE) {
                     updateUiState { copy(isLoading = true) }
-                    viewModelScope.launch(ioDispatcher) {
+                    viewModelScope.launch {
                         val comparison = aiGeneratorRepository.compareCars(
-                            uiState.value.listOfHistory[uiState.value.listOfIndexesChosenItems[0]],
-                            uiState.value.listOfHistory[uiState.value.listOfIndexesChosenItems[1]]
+                            uiState.value.listOfHistory[mutableStateFromTheIndexes[0]],
+                            uiState.value.listOfHistory[mutableStateFromTheIndexes[1]]
                         )
                         updateUiState {
                             copy(
@@ -82,7 +78,7 @@ class CompareViewModel @Inject constructor(
     }
 
     private fun getHistoryFromDb() {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             updateUiState { copy(isLoading = true) }
             val newList = carHistoryRepository.getAllCarsHistory()
             updateUiState { copy(listOfHistory = newList, isLoading = false) }

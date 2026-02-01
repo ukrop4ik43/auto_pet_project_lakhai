@@ -37,7 +37,6 @@ class ConclusionViewModelTest {
         Dispatchers.setMain(testDispatcher)
         viewModel = ConclusionViewModel(
             aiGeneratorRepository = aiGeneratorRepository,
-            ioDispatcher = testDispatcher
         )
     }
 

@@ -54,7 +54,6 @@ class HistoryViewModelTest {
             carRepository = carRepository,
             carHistoryRepository = carHistoryRepository,
             appResources = appResources,
-            ioDispatcher = testDispatcher
         )
     }
 
